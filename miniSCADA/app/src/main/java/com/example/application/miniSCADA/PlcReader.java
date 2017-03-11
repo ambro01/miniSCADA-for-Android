@@ -2,40 +2,49 @@ package com.example.application.miniSCADA;
 
 import android.os.AsyncTask;
 
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteObject;
+
+import java.util.ArrayList;
+
 import Moka7.S7;
 import Moka7.S7Client;
 
 public class PlcReader extends AsyncTask<String, Void, String> {
     String ret = "";
-    DataBlock data;
+    ArrayList<DiscreteObject> discreteObjects;
 
-    public PlcReader(DataBlock data){
-        this.data = data;
+    public PlcReader(ArrayList<DiscreteObject> ob){
+        discreteObjects = ob;
     }
     @Override
     protected String doInBackground(String... params){
-        try{
-            Globals.s7client.SetConnectionType(S7.S7_BASIC);
-            int result = Globals.s7client.ConnectTo("10.10.101.47",0,1);
+        if (!discreteObjects.isEmpty()) {
+            try {
+                Globals.s7client.SetConnectionType(S7.S7_BASIC);
+                int result = Globals.s7client.ConnectTo("10.10.101.47", 0, 1);
 
-            if(result == 0) {
-                result = Globals.s7client.ReadArea(S7.S7AreaDB, data.getDbNumber(), data.getPosition(), data.getSize(), data.getData());
-                ret = "Value of DB7.DBX4.0: " + S7.GetBitAt(data.getData(),0,0);
-            }else{
-                ret = "Err: " + S7Client.ErrorText(result);
+                if (result == 0) {
+                    for (DiscreteObject ob: discreteObjects) {
+                        result = Globals.s7client.ReadArea(S7.S7AreaDB, ob.getStatusDataBlock().getDbNumber(), ob.getStatusDataBlock().getPosition(), ob.getStatusDataBlock().getSize(), ob.getStatusDataBlock().getData());
+                        ob.updateStatus();
+                        ob.updateImage();
+                    }
+                } else {
+                    ret = "Err: " + S7Client.ErrorText(result);
+                }
+                Globals.s7client.Disconnect();
+            } catch (Exception e) {
+                ret = "EXC: " + e.toString();
+                Thread.interrupted();
             }
-            Globals.s7client.Disconnect();
-        }catch(Exception e){
-            ret = "EXC: " + e.toString();
-            Thread.interrupted();
         }
         return "executed";
     }
 
-    @Override
-    protected void onPostExecute(String result) {
+   // @Override
+   // protected void onPostExecute(String result) {
        // TextView textOut = (TextView) findViewById(R.id.textView);
        // textOut.setText(ret);
-    }
+    //}
 
 }

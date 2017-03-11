@@ -4,6 +4,8 @@ import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.*;
 
+import Moka7.S7;
+
 public abstract class DiscreteObject{
     private boolean status;
     private DataBlockBool statusDataBlock;
@@ -62,6 +64,16 @@ public abstract class DiscreteObject{
     public int getPositionY(){
         return this.positionY;
     }
+
+    public DataBlockBool getStatusDataBlock(){
+        return statusDataBlock;
+    }
+
+    public void updateStatus(){
+        this.status = S7.GetBitAt(statusDataBlock.getData(),0,statusDataBlock.getBitPosition());
+    }
+
+    public abstract void updateImage();
 
     public abstract void updateSize();
 

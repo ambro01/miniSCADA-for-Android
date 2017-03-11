@@ -2,6 +2,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -13,17 +14,21 @@ import Moka7.*;
 public class MyButton extends DiscreteObject{
     private Button button;
     private boolean command;
-    private DataBlockBool commandDataBlock;
+    private DataBlockBool commandOnDataBlock;
+    private DataBlockBool commandOffDataBlock;
     private String textOnTrue;
     private String textOnFalse;
 
-    public MyButton(Activity activity, DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y, DataBlockBool commandDataBlock){
+    public MyButton(Activity activity, DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y, DataBlockBool commandOnDataBlock,DataBlockBool commandOffDataBlock){
         super(statusDataBlock,onTrueImageId,onFalseImageId,x,y);
         button = new Button(activity);
         this.updateImage();
         this.textOnTrue = "";
         this.textOnFalse = "";
-        this.commandDataBlock = commandDataBlock;
+        this.commandOnDataBlock = commandOnDataBlock;
+        this.commandOffDataBlock = commandOffDataBlock;
+        this.button.setTextColor(Color.BLACK);
+        this.button.setTextSize(12);
     }
 
     public Button getButton(){
@@ -39,10 +44,13 @@ public class MyButton extends DiscreteObject{
     }
 
     public void updateImage(){
-        if (this.getStatus())
+        if (this.getStatus()) {
             button.setBackgroundResource(this.getOnTrueImageId());
-        else
+            button.setText(this.textOnTrue);
+        } else {
             button.setBackgroundResource(this.getOnFalseImageId());
+            button.setText(this.textOnFalse);
+        }
     }
 
     public void executeCommand(){
@@ -64,13 +72,6 @@ public class MyButton extends DiscreteObject{
         layout.addView(this.button);
     }
 
-    public void updateText(){
-        if (this.getStatus())
-            button.setText(this.textOnTrue);
-        else
-            button.setText(this.textOnFalse);
-    }
-
     public void setTrue(){
         this.command = true;
     }
@@ -84,8 +85,13 @@ public class MyButton extends DiscreteObject{
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                setTrue();
-                executeCommand();
+                if (getStatus()) {
+                    setFalse();
+                    executeCommand();
+                } else {
+                    setTrue();
+                    executeCommand();
+                }
             }
         });
     }
