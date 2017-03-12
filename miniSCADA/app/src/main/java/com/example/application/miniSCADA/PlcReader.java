@@ -26,8 +26,6 @@ public class PlcReader extends AsyncTask<String, Void, String> {
                 if (result == 0) {
                     for (DiscreteObject ob: discreteObjects) {
                         result = Globals.s7client.ReadArea(S7.S7AreaDB, ob.getStatusDataBlock().getDbNumber(), ob.getStatusDataBlock().getPosition(), ob.getStatusDataBlock().getSize(), ob.getStatusDataBlock().getData());
-                        ob.updateStatus();
-                        ob.updateImage();
                     }
                 } else {
                     ret = "Err: " + S7Client.ErrorText(result);
@@ -42,9 +40,10 @@ public class PlcReader extends AsyncTask<String, Void, String> {
     }
 
    // @Override
-   // protected void onPostExecute(String result) {
-       // TextView textOut = (TextView) findViewById(R.id.textView);
-       // textOut.setText(ret);
-    //}
-
+   protected void onPostExecute(String result) {
+       for (DiscreteObject ob: discreteObjects) {
+           ob.updateStatus();
+           ob.updateImage();
+       }
+    }
 }

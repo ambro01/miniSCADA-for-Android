@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
+        //wykonywanie taska co 1000ms
         timer.schedule(task,0,1000);
     }
 
@@ -54,13 +55,14 @@ public class MainActivity extends AppCompatActivity {
         byte[] data = new byte[1];
         DataBlockBool statusDataBlock = new DataBlockBool(7,4,data,0);
         DataBlockBool commandOnDataBlock = new DataBlockBool(7,4,data,1);
-        DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,1);
+        DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,2);
         MyButton myButton = new MyButton(this, statusDataBlock, R.drawable.true_button, R.drawable.false_button,dptoPx(Globals.posX),dptoPx(Globals.posY), commandOnDataBlock, commandOffDataBlock);
         myButton.setTextOnFalse("Turn ON");
         myButton.setTextOnTrue("Turn OFF");
         myButton.updatePosition();
         myButton.drawObject(this.layout);
         myButton.createOnClickListener(view);
+        myButton.createOnTouchListener(view,layout);
         setContentView(layout);
         discreteObjects.add(myButton);
 
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         myText.setWidth(300);
 
         layout.addView(myText);
-        System.out.println("start");
     }
 
     public int dptoPx(int dp){

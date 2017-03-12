@@ -1,8 +1,14 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -13,11 +19,12 @@ import Moka7.*;
 
 public class MyButton extends DiscreteObject{
     private Button button;
-    private boolean command;
     private DataBlockBool commandOnDataBlock;
     private DataBlockBool commandOffDataBlock;
     private String textOnTrue;
     private String textOnFalse;
+    private float oldXvalue;
+    private float oldYvalue;
 
     public MyButton(Activity activity, DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y, DataBlockBool commandOnDataBlock,DataBlockBool commandOffDataBlock){
         super(statusDataBlock,onTrueImageId,onFalseImageId,x,y);
@@ -54,8 +61,13 @@ public class MyButton extends DiscreteObject{
     }
 
     public void executeCommand(){
-            S7.SetBitAt(this.commandDataBlock.getData(), 0, this.commandDataBlock.getBitPosition(), this.command);
-            new PlcWriter(this.commandDataBlock).execute("");
+        if(this.getStatus()){
+            S7.SetBitAt(this.commandOffDataBlock.getData(), 0, this.commandOffDataBlock.getBitPosition(), true);
+            new PlcWriter(this.commandOffDataBlock).execute("");
+        } else {
+            S7.SetBitAt(this.commandOnDataBlock.getData(), 0, this.commandOnDataBlock.getBitPosition(), true);
+            new PlcWriter(this.commandOnDataBlock).execute("");
+        }
     }
 
     public void updateSize(){
@@ -72,26 +84,69 @@ public class MyButton extends DiscreteObject{
         layout.addView(this.button);
     }
 
-    public void setTrue(){
-        this.command = true;
-    }
-
-    public void setFalse(){
-        this.command = false;
-    }
-
-
     public void createOnClickListener(View view){
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (getStatus()) {
-                    setFalse();
-                    executeCommand();
-                } else {
-                    setTrue();
-                    executeCommand();
+                executeCommand();
+            }
+        });
+    }
+/*
+    public void createOnLongClickListener(View view){
+        button.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                ClipData clipData = ClipData.newPlainText("","");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(button);
+                button.startDrag(clipData, shadowBuilder, button, 0);
+                return true;
+            }
+        });
+    }
+
+    public void createOnDragListener(View v){
+        button.setOnDragListener(new View.OnDragListener(){
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                switch (event.getAction()) {
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        return true;
+                    case DragEvent.ACTION_DROP:
+                        int posX = (int) event.getX();
+                        int posY = (int) event.getY();
+                        setPosition(posX,posY);
+                        return true;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        return true;
                 }
+                return true;
+            }
+        });
+    }
+    */
+
+    public void createOnTouchListener(final View view, final RelativeLayout layout){
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent me) {
+                switch (me.getAction() & MotionEvent.ACTION_MASK){
+                    case MotionEvent.ACTION_DOWN:
+                        RelativeLayout.LayoutParams lparams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        oldXvalue = me.getRawX() - lparams.leftMargin;
+                        oldYvalue = me.getRawY() - lparams.topMargin;
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        params.leftMargin = (int)(me.getRawX() - oldXvalue);
+                        params.topMargin = (int)(me.getRawY() - oldYvalue);
+                        params.rightMargin = -250;
+                        params.bottomMargin = -250;
+                        button.setLayoutParams(params);
+                        break;
+                }
+                return true;
             }
         });
     }
