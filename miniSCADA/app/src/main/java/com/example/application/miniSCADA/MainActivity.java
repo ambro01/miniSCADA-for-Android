@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         listDataHeader.get(groupPosition) + " Collapsed",
                         Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -76,17 +75,10 @@ public class MainActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(getApplicationContext(), listDataHeader.get(groupPosition) + " : " +
+                        listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -99,38 +91,36 @@ public class MainActivity extends AppCompatActivity {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
+        listDataHeader.add("Discrete Controls");
+        listDataHeader.add("Analog Controls");
+        listDataHeader.add("Static Elements");
 
         // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
+        List<String> discreteControls = new ArrayList<String>();
+        discreteControls.add("Button");
+        discreteControls.add("Valve Vertical");
+        discreteControls.add("Valve Horizontal");
+        discreteControls.add("Lamp");
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
 
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
+        List<String> analogControls = new ArrayList<String>();
+        analogControls.add("Float Display");
 
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+        List<String> staticElements = new ArrayList<String>();
+        staticElements.add("Pipe Vertical");
+        staticElements.add("Pipe Horizontal");
+        staticElements.add("Pipe Left-Top");
+        staticElements.add("Pipe Left-Bottom");
+        staticElements.add("Pipe Right-Top");
+        staticElements.add("Pipe Right-Bottom");
+        staticElements.add("Pipe Cross");
+        staticElements.add("Pump Left-Right");
+        staticElements.add("Pump Right-Left");
+
+
+        listDataChild.put(listDataHeader.get(0), discreteControls); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), analogControls);
+        listDataChild.put(listDataHeader.get(2), staticElements);
     }
 
 
