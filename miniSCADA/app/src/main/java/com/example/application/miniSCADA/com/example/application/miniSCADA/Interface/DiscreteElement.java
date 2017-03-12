@@ -6,7 +6,7 @@ import com.example.application.miniSCADA.*;
 
 import Moka7.S7;
 
-public abstract class DiscreteObject{
+public abstract class DiscreteElement extends Element{
     private boolean status;
     private DataBlockBool statusDataBlock;
     private int onTrueImageId;
@@ -16,7 +16,7 @@ public abstract class DiscreteObject{
     private int positionX;
     private int positionY;
 
-    public DiscreteObject(DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y){
+    public DiscreteElement(DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y){
         this.status = false;
         this.statusDataBlock = statusDataBlock;
         this.onTrueImageId = onTrueImageId;

@@ -1,13 +1,7 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +11,7 @@ import com.example.application.miniSCADA.*;
 
 import Moka7.*;
 
-public class MyButton extends DiscreteObject{
+public class MyButton extends DiscreteElement {
     private Button button;
     private DataBlockBool commandOnDataBlock;
     private DataBlockBool commandOffDataBlock;
@@ -126,19 +120,19 @@ public class MyButton extends DiscreteObject{
     }
     */
 
-    public void createOnTouchListener(final View view, final RelativeLayout layout){
+    public void createOnTouchListener(final RelativeLayout layout){
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent me) {
                 switch (me.getAction() & MotionEvent.ACTION_MASK){
                     case MotionEvent.ACTION_DOWN:
-                        RelativeLayout.LayoutParams lparams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        RelativeLayout.LayoutParams lparams = (RelativeLayout.LayoutParams) v.getLayoutParams();
                         oldXvalue = me.getRawX() - lparams.leftMargin;
                         oldYvalue = me.getRawY() - lparams.topMargin;
                         break;
 
                     case MotionEvent.ACTION_MOVE:
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) v.getLayoutParams();
                         params.leftMargin = (int)(me.getRawX() - oldXvalue);
                         params.topMargin = (int)(me.getRawY() - oldYvalue);
                         params.rightMargin = -250;

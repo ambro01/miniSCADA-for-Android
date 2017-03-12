@@ -2,7 +2,7 @@ package com.example.application.miniSCADA;
 
 import android.os.AsyncTask;
 
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteObject;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteElement;
 
 import java.util.ArrayList;
 
@@ -11,20 +11,20 @@ import Moka7.S7Client;
 
 public class PlcReader extends AsyncTask<String, Void, String> {
     String ret = "";
-    ArrayList<DiscreteObject> discreteObjects;
+    ArrayList<DiscreteElement> discreteElements;
 
-    public PlcReader(ArrayList<DiscreteObject> ob){
-        discreteObjects = ob;
+    public PlcReader(ArrayList<DiscreteElement> ob){
+        discreteElements = ob;
     }
     @Override
     protected String doInBackground(String... params){
-        if (!discreteObjects.isEmpty()) {
+        if (!discreteElements.isEmpty()) {
             try {
                 Globals.s7client.SetConnectionType(S7.S7_BASIC);
                 int result = Globals.s7client.ConnectTo("10.10.101.47", 0, 1);
 
                 if (result == 0) {
-                    for (DiscreteObject ob: discreteObjects) {
+                    for (DiscreteElement ob: discreteElements) {
                         result = Globals.s7client.ReadArea(S7.S7AreaDB, ob.getStatusDataBlock().getDbNumber(), ob.getStatusDataBlock().getPosition(), ob.getStatusDataBlock().getSize(), ob.getStatusDataBlock().getData());
                     }
                 } else {
@@ -41,7 +41,7 @@ public class PlcReader extends AsyncTask<String, Void, String> {
 
    // @Override
    protected void onPostExecute(String result) {
-       for (DiscreteObject ob: discreteObjects) {
+       for (DiscreteElement ob: discreteElements) {
            ob.updateStatus();
            ob.updateImage();
        }
