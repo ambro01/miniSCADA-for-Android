@@ -25,7 +25,6 @@ public class DevelopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_develop);
 
-        //layout = new RelativeLayout(this);
         layout = (RelativeLayout) findViewById(R.id.develop_root);
         discreteElements = new ArrayList<DiscreteElement>();
 

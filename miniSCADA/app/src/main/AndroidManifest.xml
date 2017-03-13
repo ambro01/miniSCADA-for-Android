@@ -23,6 +23,10 @@
         <activity
             android:name=".DevelopActivity"
             android:label="@string/title_activity_develop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PreDevelop"
+            android:label="@string/title_activity_pre_develop"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -124,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onClick(View view){
-        Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
-        startActivity(startDevelopActivity);
+    public void createProject(View view){
+       // Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
+      //  startActivity(startDevelopActivity);
+        Intent startPreDevelopActivity = new Intent(getApplicationContext(), PreDevelop.class);
+        startActivity(startPreDevelopActivity);
     }
 }
