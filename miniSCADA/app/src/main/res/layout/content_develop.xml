@@ -9,39 +9,35 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.application.miniSCADA.DevelopActivity"
+    tools:context=".com.example.application.miniSCADA.Interface.DevelopActivity"
     tools:showIn="@layout/activity_develop"
     android:id="@+id/develop_root">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Button"
         android:id="@+id/button4"
-        android:layout_marginBottom="65dp"
         android:nestedScrollingEnabled="false"
-        android:onClick="onClick"
+        android:onClick="onButtonCreate"
+        android:layout_marginBottom="69dp"
+        android:layout_marginRight="56dp"
+        android:layout_marginEnd="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="195dp"
-        android:layout_marginStart="195dp" />
+        android:layout_toLeftOf="@+id/button7"
+        android:layout_toStartOf="@+id/button7" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lay"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/button7"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/button4">
-
-        <ExpandableListView
-            android:layout_width="400dp"
-            android:layout_height="200dp"
-            android:id="@+id/expandableListView"
-            android:layout_alignParentTop="true" />
-
-    </RelativeLayout>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="37dp"
+        android:onClick="onSaveProject" />
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.ExpandableListAdapter;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.PreDevelop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,10 +125,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createProject(View view){
-       // Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
-      //  startActivity(startDevelopActivity);
+    public void onCreateProject(View view){
         Intent startPreDevelopActivity = new Intent(getApplicationContext(), PreDevelop.class);
         startActivity(startPreDevelopActivity);
+    }
+
+    public void onModifyProject(View view){
+        Intent startModifyActivity = new Intent(getApplicationContext(), ModifyActivity.class);
+        startActivity(startModifyActivity);
     }
 }

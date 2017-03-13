@@ -1,6 +1,8 @@
 package com.example.application.miniSCADA;
 
-public class DataBlock {
+import java.io.Serializable;
+
+public class DataBlock implements Serializable{
     private int dbNumber;
     private int position;
     private int size;

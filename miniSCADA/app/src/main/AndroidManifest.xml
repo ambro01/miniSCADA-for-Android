@@ -21,12 +21,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DevelopActivity"
+            android:name=".com.example.application.miniSCADA.Interface.DevelopActivity"
             android:label="@string/title_activity_develop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PreDevelop"
+            android:name=".com.example.application.miniSCADA.Interface.PreDevelop"
             android:label="@string/title_activity_pre_develop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ModifyActivity"
+            android:label="@string/title_activity_modify"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

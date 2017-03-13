@@ -1,4 +1,7 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
-public class Element {
+import java.io.Serializable;
+
+public class Element implements Serializable{
+
 }

@@ -12,7 +12,7 @@ import com.example.application.miniSCADA.*;
 import Moka7.*;
 
 public class MyButton extends DiscreteElement {
-    private Button button;
+    private transient Button button;
     private DataBlockBool commandOnDataBlock;
     private DataBlockBool commandOffDataBlock;
     private String textOnTrue;
