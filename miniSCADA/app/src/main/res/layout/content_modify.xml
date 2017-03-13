@@ -9,24 +9,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ModifyActivity"
+    tools:context=".com.example.application.miniSCADA.Interface.ModifyActivity"
     tools:showIn="@layout/activity_modify">
 
     <ListView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:id="@+id/listViewOfProjects" />
+        android:id="@+id/listViewOfProjects"
+        android:listSelector="@drawable/selector"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Open Project"
         android:id="@+id/button8"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="76dp"
+        android:onClick="onOpenProjectToModify"
         android:layout_alignTop="@+id/listViewOfProjects"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="55dp"
-        android:layout_marginEnd="55dp"
-        android:onClick="onOpenProject" />
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Project"
+        android:id="@+id/button9"
+        android:layout_marginTop="29dp"
+        android:onClick="onDeleteProject"
+        android:layout_below="@+id/button8"
+        android:layout_alignLeft="@+id/button8"
+        android:layout_alignStart="@+id/button8"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp" />
 </RelativeLayout>

@@ -32,6 +32,15 @@ public class MyButton extends DiscreteElement {
         this.button.setTextSize(12);
     }
 
+    public void reCreateButton(Activity activity){
+        button = new Button(activity);
+        this.updateImage();
+        this.button.setTextSize(12);
+
+        updatePosition();
+        updateSize();
+    }
+
     public Button getButton(){
         return button;
     }

@@ -18,33 +18,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Project name:"
         android:id="@+id/textView"
+        android:layout_marginRight="46dp"
+        android:layout_marginEnd="46dp"
         android:layout_alignBottom="@+id/nameOfNewPoject"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_toLeftOf="@+id/nameOfNewPoject"
+        android:layout_toStartOf="@+id/nameOfNewPoject" />
 
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/nameOfNewPoject"
-        android:layout_marginTop="37dp"
-        android:layout_marginRight="88dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginRight="98dp"
+        android:layout_marginEnd="98dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Background color:"
-        android:id="@+id/textView2"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView"
-        android:layout_toLeftOf="@+id/nameOfNewPoject"
-        android:layout_toStartOf="@+id/nameOfNewPoject"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,15 +45,5 @@
         android:layout_alignEnd="@+id/nameOfNewPoject"
         android:layout_marginBottom="57dp"
         android:onClick="onFinalCreateProject" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select color"
-        android:id="@+id/onColorSelect"
-        android:onClick="onColorSelect"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignLeft="@+id/nameOfNewPoject"
-        android:layout_alignStart="@+id/nameOfNewPoject" />
 
 </RelativeLayout>

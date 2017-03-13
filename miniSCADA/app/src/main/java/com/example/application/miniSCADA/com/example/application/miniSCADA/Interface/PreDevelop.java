@@ -19,9 +19,7 @@ import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
 
-public class PreDevelop extends AppCompatActivity implements ColorPickerDialogListener {
-    private int backgroundColor;
-    private String projectName;
+public class PreDevelop extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +27,15 @@ public class PreDevelop extends AppCompatActivity implements ColorPickerDialogLi
         setContentView(R.layout.activity_pre_develop);
     }
 
-    public void onColorSelect(View view){
-        ColorPickerDialog.newBuilder().setColor(Color.WHITE).setShowAlphaSlider(true).show(this);
-    }
-
     public void onFinalCreateProject(View view){
+        String projectName;
         TextView name = (TextView) findViewById(R.id.nameOfNewPoject);
         projectName = name.getText().toString();
 
         Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
         startDevelopActivity.putExtra("projectName", projectName);
+        startDevelopActivity.putExtra("deserialize", "false");
         startActivity(startDevelopActivity);
     }
-
-    @Override
-    public void onColorSelected(int dialogId, @ColorInt int color) {
-        backgroundColor = color;
-    }
-
-    @Override
-    public void onDialogDismissed(int dialogId) {
-    }
-
 
 }

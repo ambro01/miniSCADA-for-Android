@@ -1,12 +1,10 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
-
-import android.graphics.Color;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Visualisation implements Serializable{
+    private static final long serialVersionUID = 1L;
     String name;
     ArrayList<Element> elements;
     int backgrondColor;

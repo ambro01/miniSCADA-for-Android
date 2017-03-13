@@ -3,6 +3,7 @@ package com.example.application.miniSCADA;
 import java.io.Serializable;
 
 public class DataBlock implements Serializable{
+    private static final long serialVersionUID = 3L;
     private int dbNumber;
     private int position;
     private int size;

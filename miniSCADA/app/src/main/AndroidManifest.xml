@@ -29,7 +29,7 @@
             android:label="@string/title_activity_pre_develop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ModifyActivity"
+            android:name=".com.example.application.miniSCADA.Interface.ModifyActivity"
             android:label="@string/title_activity_modify"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
