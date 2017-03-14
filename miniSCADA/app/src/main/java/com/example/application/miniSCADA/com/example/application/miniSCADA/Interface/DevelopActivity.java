@@ -1,7 +1,10 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -9,9 +12,11 @@ import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.application.miniSCADA.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
@@ -30,15 +35,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class DevelopActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
     private RelativeLayout layout;
-    //private ArrayList<DiscreteElement> discreteElements;
     private Visualisation visu;
+
+    private ExpandableListView itemsListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,36 +72,39 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         }
 
         if(deserialize.equals("false")  && !projectName.isEmpty()){
-            visu = new Visualisation(projectName, Color.WHITE);
+            visu = new Visualisation(projectName, Color.rgb(190,190,190));
             refreshBackgrondColor();
         } else if(deserialize.equals("true") && !projectName.isEmpty()){
             deserializeVisualisation(projectName);
         }
-
-        //layout.setBackgroundColor(visu.getBackgrondColor());
+        prepareListView();
     }
 
-    public void refreshBackgrondColor(){
-        layout.setBackgroundColor(visu.getBackgrondColor());
-    }
+    //------------------BUTTON ACTIONS------------------------
 
     public void onButtonCreate(View view){
         byte[] data = new byte[1];
         DataBlockBool statusDataBlock = new DataBlockBool(7,4,data,0);
         DataBlockBool commandOnDataBlock = new DataBlockBool(7,4,data,1);
         DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,2);
-        MyButton myButton = new MyButton(this, statusDataBlock, R.drawable.true_button, R.drawable.false_button,dptoPx(Globals.posX),dptoPx(Globals.posY), commandOnDataBlock, commandOffDataBlock);
+        MyButton myButton = new MyButton(this, statusDataBlock, dptoPx(Globals.posX), dptoPx(Globals.posY),
+                dptoPx(Globals.buttonHeight), dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
         myButton.setTextOnFalse("Turn ON");
         myButton.setTextOnTrue("Turn OFF");
-        myButton.updatePosition();
+        myButton.setOnTrueImage("Button1.png");
+        myButton.setOnFalseImage("Button0.png");
+        myButton.updateTrueFalseImage(this);
+
+        myButton.updatePositionToElement();
         myButton.drawObject(this.layout);
         //myButton.createOnClickListener(view);
         myButton.createOnTouchListener(layout);
-        //setContentView(layout);
         visu.addElement(myButton);
     }
 
     public void onSaveProject(View view){
+        updatePositionsBeforeSaving();
+        updateSizesBeforeSaving();
         serializeVisualisation();
     }
 
@@ -94,43 +112,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         onColorSelect(view);
     }
 
-    public void onColorSelect(View view){
-        ColorPickerDialog.newBuilder().setColor(Color.WHITE).setShowAlphaSlider(true).show(this);
-    }
-
-    @Override
-    public void onColorSelected(int dialogId, @ColorInt int color) {
-        visu.setBackgrondColor(color);
-        refreshBackgrondColor();
-    }
-
-    @Override
-    public void onDialogDismissed(int dialogId) {
-    }
-
-    public int dptoPx(int dp){
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
-
-    public void periodicallyReadPlc(){
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        new PlcReader(visu.getElements()).execute("");
-                    }
-                });
-            }
-        };
-        //wykonywanie taska co 1000ms
-        timer.schedule(task,0,1000);
-    }
+    //------------METHODS TO SERIALIZE AND DESERIALIZE
 
     public void serializeVisualisation(){
         File file = new File(getFilesDir() + "/" + visu.getName() + ".ser");
@@ -166,18 +148,199 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 fileIn.close();
 
                 refreshBackgrondColor();
-                for(Element element : visu.getElements()){
-                    MyButton myButton = (MyButton) element;
-                    myButton.reCreateButton(this);
-                    myButton.drawObject(this.layout);
-                    myButton.createOnTouchListener(layout);
-                }
+                reCreateElementsAfterProjectOpen();
             }catch (IOException e){
                 e.printStackTrace();
             }catch (ClassNotFoundException e){
                 e.printStackTrace();
             }
         }
+    }
+
+    public void updatePositionsBeforeSaving(){
+        for(Element element : visu.getElements()){
+            element.updatePositionFromElement();
+        }
+    }
+
+    public void updateSizesBeforeSaving(){
+        for(Element element : visu.getElements()){
+            element.updateSizeFromElement();
+        }
+    }
+
+    public void reCreateElementsAfterProjectOpen(){
+        for(Element element : visu.getElements()){
+            if(element instanceof MyButton){
+                MyButton myButton = (MyButton) element;
+                myButton.reCreateButton(this);
+                myButton.updateTrueFalseImage(this);
+                myButton.drawObject(this.layout);
+                myButton.createOnTouchListener(layout);
+            }
+        }
+    }
+
+
+    //-----------METHODS TO LIST VIEW ----------------------
+
+    public void onItemsClick(View view){
+        itemsListView.setVisibility(View.VISIBLE);
+    }
+
+    public void onEmptyImageClick(View view){
+        itemsListView.setVisibility(View.INVISIBLE);
+    }
+
+    public void prepareListView(){
+        ExpandableListAdapter listAdapter;
+        itemsListView = (ExpandableListView) findViewById(R.id.itemsListView);
+        prepareListData();
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        itemsListView.setAdapter(listAdapter);
+        itemsListView.setVisibility(View.INVISIBLE);
+
+        itemsListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {;
+                return false;
+            }
+        });
+
+        itemsListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+            }
+        });
+
+        itemsListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+            }
+        });
+
+        itemsListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                String itemName = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+                createElementFromListView(itemName);
+                itemsListView.setVisibility(View.INVISIBLE);
+                return false;
+            }
+        });
+    }
+
+    public void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        listDataHeader.add("Discrete Controls");
+        listDataHeader.add("Analog Controls");
+        listDataHeader.add("Static Elements");
+
+        List<String> discreteControls = new ArrayList<String>();
+        discreteControls.add("Button");
+        discreteControls.add("Valve Vertical");
+        discreteControls.add("Valve Horizontal");
+        discreteControls.add("Lamp");
+
+
+        List<String> analogControls = new ArrayList<String>();
+        analogControls.add("Float Display");
+
+        List<String> staticElements = new ArrayList<String>();
+        staticElements.add("Pipe Vertical");
+        staticElements.add("Pipe Horizontal");
+        staticElements.add("Pipe Left-Top");
+        staticElements.add("Pipe Left-Bottom");
+        staticElements.add("Pipe Right-Top");
+        staticElements.add("Pipe Right-Bottom");
+        staticElements.add("Pipe Cross");
+        staticElements.add("Pump Left-Right");
+        staticElements.add("Pump Right-Left");
+
+
+        listDataChild.put(listDataHeader.get(0), discreteControls);
+        listDataChild.put(listDataHeader.get(1), analogControls);
+        listDataChild.put(listDataHeader.get(2), staticElements);
+    }
+
+    public void createElementFromListView(String itemName){
+        if(!itemName.isEmpty()){
+            switch (itemName) {
+                case "Button":
+                    defaultButtonCreate(itemName);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    //---------------METHODS TO COLOR CHANGE
+
+    public void refreshBackgrondColor(){
+        layout.setBackgroundColor(visu.getBackgrondColor());
+    }
+
+    public void onColorSelect(View view){
+        ColorPickerDialog.newBuilder().setColor(Color.WHITE).setShowAlphaSlider(true).show(this);
+    }
+
+    @Override
+    public void onColorSelected(int dialogId, @ColorInt int color) {
+        visu.setBackgrondColor(color);
+        refreshBackgrondColor();
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+    }
+
+    //------------------METHODS WITH PLC -------------------------
+
+    public void periodicallyReadPlc(){
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        new PlcReader(getApplicationContext(), visu.getElements()).execute("");
+                    }
+                });
+            }
+        };
+        //wykonywanie taska co 1000ms
+        timer.schedule(task,0,1000);
+    }
+
+
+    public int dptoPx(int dp){
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public void defaultButtonCreate(String name){
+        byte[] data = new byte[1];
+        DataBlockBool statusDataBlock = new DataBlockBool(0,0,data,0);
+        DataBlockBool commandOnDataBlock = new DataBlockBool(0,0,data,1);
+        DataBlockBool commandOffDataBlock = new DataBlockBool(0,0,data,2);
+        MyButton myButton = new MyButton(this, statusDataBlock, dptoPx(Globals.posX), dptoPx(Globals.posY),
+                dptoPx(Globals.buttonHeight), dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
+        myButton.setTextOnFalse("Turn ON");
+        myButton.setTextOnTrue("Turn OFF");
+
+        myButton.setOnTrueImage(name + "1.png");
+        myButton.setOnFalseImage(name + "0.png");
+
+        myButton.updateTrueFalseImage(this);
+        myButton.updatePositionToElement();
+        myButton.drawObject(this.layout);
+        myButton.createOnTouchListener(layout);
+        visu.addElement(myButton);
     }
 
 

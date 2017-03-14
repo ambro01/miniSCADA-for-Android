@@ -1,5 +1,6 @@
 package com.example.application.miniSCADA;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteElement;
@@ -11,10 +12,12 @@ import Moka7.S7;
 import Moka7.S7Client;
 
 public class PlcReader extends AsyncTask<String, Void, String> {
-    String ret = "";
-    ArrayList<Element> elements;
+    private String ret = "";
+    private ArrayList<Element> elements;
+    private Context context;
 
-    public PlcReader(ArrayList<Element> ob){
+    public PlcReader(Context context, ArrayList<Element> ob){
+        this.context = context;
         elements = ob;
     }
     @Override
@@ -49,7 +52,7 @@ public class PlcReader extends AsyncTask<String, Void, String> {
        for (Element ob: elements) {
            discreteElement = (DiscreteElement) ob;
            discreteElement.updateStatus();
-           discreteElement.updateImage();
+           discreteElement.updateTrueFalseImage(context);
        }
     }
 }

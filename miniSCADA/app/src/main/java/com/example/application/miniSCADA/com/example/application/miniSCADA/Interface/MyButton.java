@@ -1,6 +1,7 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,28 +18,28 @@ public class MyButton extends DiscreteElement {
     private DataBlockBool commandOffDataBlock;
     private String textOnTrue;
     private String textOnFalse;
-    private float oldXvalue;
-    private float oldYvalue;
 
-    public MyButton(Activity activity, DataBlockBool statusDataBlock, int onTrueImageId, int onFalseImageId, int x, int y, DataBlockBool commandOnDataBlock,DataBlockBool commandOffDataBlock){
-        super(statusDataBlock,onTrueImageId,onFalseImageId,x,y);
+
+    public MyButton(Activity activity, DataBlockBool statusDataBlock, int x, int y, int height, int width,
+                    DataBlockBool commandOnDataBlock,DataBlockBool commandOffDataBlock){
+        super(statusDataBlock,x,y,height,width);
         button = new Button(activity);
-        this.updateImage();
         this.textOnTrue = "";
         this.textOnFalse = "";
         this.commandOnDataBlock = commandOnDataBlock;
         this.commandOffDataBlock = commandOffDataBlock;
         this.button.setTextColor(Color.BLACK);
-        this.button.setTextSize(12);
+        this.button.setTextSize(14);
+        this.button.setBackgroundColor(Color.WHITE);
     }
 
     public void reCreateButton(Activity activity){
-        button = new Button(activity);
-        this.updateImage();
-        this.button.setTextSize(12);
+        this.button = new Button(activity);
+        this.updateTrueFalseImage(activity);
+        this.button.setTextSize(14);
 
-        updatePosition();
-        updateSize();
+        updatePositionToElement();
+        updateSizeToElement();
     }
 
     public Button getButton(){
@@ -53,12 +54,12 @@ public class MyButton extends DiscreteElement {
         this.textOnFalse = text;
     }
 
-    public void updateImage(){
+    public void updateTrueFalseImage(Context context){
         if (this.getStatus()) {
-            button.setBackgroundResource(this.getOnTrueImageId());
+            button.setBackground(Globals.loadImageToDrawable(context, this.getOnTrueImage()));
             button.setText(this.textOnTrue);
         } else {
-            button.setBackgroundResource(this.getOnFalseImageId());
+            button.setBackground(Globals.loadImageToDrawable(context, this.getOnFalseImage()));
             button.setText(this.textOnFalse);
         }
     }
@@ -73,14 +74,22 @@ public class MyButton extends DiscreteElement {
         }
     }
 
-    public void updateSize(){
+    public void updatePositionToElement(){
+        button.setX(this.getPositionX());
+        button.setY(this.getPositionY());
+    }
+
+    public void updatePositionFromElement(){
+        this.setPosition((int)button.getX(), (int)button.getY());
+    }
+
+    public void updateSizeToElement(){
         button.setHeight(this.getHeight());
         button.setWidth(this.getWidth());
     }
 
-    public void updatePosition(){
-        button.setX(this.getPositionX());
-        button.setY(this.getPositionY());
+    public void updateSizeFromElement(){
+        this.setSize(button.getHeight(), button.getWidth());
     }
 
     public void drawObject(RelativeLayout layout){
@@ -136,14 +145,13 @@ public class MyButton extends DiscreteElement {
                 switch (me.getAction() & MotionEvent.ACTION_MASK){
                     case MotionEvent.ACTION_DOWN:
                         RelativeLayout.LayoutParams lparams = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                        oldXvalue = me.getRawX() - lparams.leftMargin;
-                        oldYvalue = me.getRawY() - lparams.topMargin;
+                        setOldPosition(me.getRawX() - lparams.leftMargin, me.getRawY() - lparams.topMargin);
                         break;
 
                     case MotionEvent.ACTION_MOVE:
                         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                        params.leftMargin = (int)(me.getRawX() - oldXvalue);
-                        params.topMargin = (int)(me.getRawY() - oldYvalue);
+                        params.leftMargin = (int)(me.getRawX() - getOldXposition());
+                        params.topMargin = (int)(me.getRawY() - getOldYposition());
                         params.rightMargin = -250;
                         params.bottomMargin = -250;
                         button.setLayoutParams(params);
