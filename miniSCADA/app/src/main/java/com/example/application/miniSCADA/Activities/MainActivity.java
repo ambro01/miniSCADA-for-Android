@@ -1,12 +1,13 @@
-package com.example.application.miniSCADA;
+package com.example.application.miniSCADA.Activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.ModifyActivity;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.PreDevelop;
+import com.example.application.miniSCADA.Globals;
+import com.example.application.miniSCADA.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Globals.displayMetrics = getResources().getDisplayMetrics();
     }
 
     public void onCreateProject(View view){
-        Intent startPreDevelopActivity = new Intent(getApplicationContext(), PreDevelop.class);
+        Intent startPreDevelopActivity = new Intent(getApplicationContext(), PreDevelopActivity.class);
         startActivity(startPreDevelopActivity);
     }
 

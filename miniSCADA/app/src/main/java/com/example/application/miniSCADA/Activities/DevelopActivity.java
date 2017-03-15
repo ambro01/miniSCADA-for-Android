@@ -1,55 +1,37 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.Activities;
 
-import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.application.miniSCADA.DataBlockBool;
+import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.PlcReader;
+import com.example.application.miniSCADA.PLC.PlcReader;
 import com.example.application.miniSCADA.R;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteElement;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
+import com.example.application.miniSCADA.ExpandableListAdapter;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.MyButton;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Visualisation;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamException;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.microedition.khronos.opengles.GL;
 
 public class DevelopActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
+    private Develop develop;
     private RelativeLayout layout;
-    private Visualisation visu;
+
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
@@ -58,8 +40,11 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
+        develop = new Develop();
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_develop);
+        Globals.displayMetrics = getResources().getDisplayMetrics();
 
         layout = (RelativeLayout) findViewById(R.id.develop_root);
         String deserialize = "";
@@ -72,10 +57,11 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         }
 
         if(deserialize.equals("false")  && !projectName.isEmpty()){
-            visu = new Visualisation(projectName, Color.rgb(190,190,190));
-            refreshBackgrondColor();
+            Visualisation visualisation = new Visualisation(projectName, Color.rgb(190,190,190));
+            develop.setVisualisation(visualisation);
+            develop.refreshBackgroundColor(layout);
         } else if(deserialize.equals("true") && !projectName.isEmpty()){
-            deserializeVisualisation(projectName);
+            develop.deserializeVisualisation(this, layout, projectName);
         }
         prepareListView();
     }
@@ -87,8 +73,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         DataBlockBool statusDataBlock = new DataBlockBool(7,4,data,0);
         DataBlockBool commandOnDataBlock = new DataBlockBool(7,4,data,1);
         DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,2);
-        MyButton myButton = new MyButton(this, statusDataBlock, dptoPx(Globals.posX), dptoPx(Globals.posY),
-                dptoPx(Globals.buttonHeight), dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
+        MyButton myButton = new MyButton(this, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                Globals.dptoPx(Globals.buttonHeight), Globals.dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
         myButton.setTextOnFalse("Turn ON");
         myButton.setTextOnTrue("Turn OFF");
         myButton.setOnTrueImage("Button1.png");
@@ -99,88 +85,20 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         myButton.drawObject(this.layout);
         //myButton.createOnClickListener(view);
         myButton.createOnTouchListener(layout);
-        visu.addElement(myButton);
+        develop.getVisualisation().addElement(myButton);
     }
 
     public void onSaveProject(View view){
-        updatePositionsBeforeSaving();
-        updateSizesBeforeSaving();
-        serializeVisualisation();
+        develop.updatePositionsBeforeSaving();
+        develop.updateSizesBeforeSaving();
+        develop.serializeVisualisation(this);
     }
+
+
 
     public void onBackgroundColorChange(View view){
         onColorSelect(view);
     }
-
-    //------------METHODS TO SERIALIZE AND DESERIALIZE
-
-    public void serializeVisualisation(){
-        File file = new File(getFilesDir() + "/" + visu.getName() + ".ser");
-        if(!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try{
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(visu);
-            out.close();
-            fileOut.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deserializeVisualisation(String name){
-        File file = new File(getFilesDir() + "/" + name + ".ser");
-        if(file.exists()) {
-            try{
-                FileInputStream fileIn = new FileInputStream(file);
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                visu = (Visualisation) in.readObject();
-                in.close();
-                fileIn.close();
-
-                refreshBackgrondColor();
-                reCreateElementsAfterProjectOpen();
-            }catch (IOException e){
-                e.printStackTrace();
-            }catch (ClassNotFoundException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void updatePositionsBeforeSaving(){
-        for(Element element : visu.getElements()){
-            element.updatePositionFromElement();
-        }
-    }
-
-    public void updateSizesBeforeSaving(){
-        for(Element element : visu.getElements()){
-            element.updateSizeFromElement();
-        }
-    }
-
-    public void reCreateElementsAfterProjectOpen(){
-        for(Element element : visu.getElements()){
-            if(element instanceof MyButton){
-                MyButton myButton = (MyButton) element;
-                myButton.reCreateButton(this);
-                myButton.updateTrueFalseImage(this);
-                myButton.drawObject(this.layout);
-                myButton.createOnTouchListener(layout);
-            }
-        }
-    }
-
 
     //-----------METHODS TO LIST VIEW ----------------------
 
@@ -223,7 +141,18 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String itemName = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
-                createElementFromListView(itemName);
+                switch (listDataHeader.get(groupPosition)){
+                    case "Discrete Controls":
+                        develop.createDiscreteControlFromName(DevelopActivity.this, layout, itemName);
+                        break;
+                    case "Analog Controls":
+                        break;
+                    case "Static Elements":
+                        develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
+                        break;
+                }
+
+
                 itemsListView.setVisibility(View.INVISIBLE);
                 return false;
             }
@@ -243,7 +172,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         discreteControls.add("Valve Vertical");
         discreteControls.add("Valve Horizontal");
         discreteControls.add("Lamp");
-
 
         List<String> analogControls = new ArrayList<String>();
         analogControls.add("Float Display");
@@ -265,23 +193,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         listDataChild.put(listDataHeader.get(2), staticElements);
     }
 
-    public void createElementFromListView(String itemName){
-        if(!itemName.isEmpty()){
-            switch (itemName) {
-                case "Button":
-                    defaultButtonCreate(itemName);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
     //---------------METHODS TO COLOR CHANGE
-
-    public void refreshBackgrondColor(){
-        layout.setBackgroundColor(visu.getBackgrondColor());
-    }
 
     public void onColorSelect(View view){
         ColorPickerDialog.newBuilder().setColor(Color.WHITE).setShowAlphaSlider(true).show(this);
@@ -289,8 +201,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     @Override
     public void onColorSelected(int dialogId, @ColorInt int color) {
-        visu.setBackgrondColor(color);
-        refreshBackgrondColor();
+        develop.getVisualisation().setBackgrondColor(color);
+        develop.refreshBackgroundColor(layout);
     }
 
     @Override
@@ -308,7 +220,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        new PlcReader(getApplicationContext(), visu.getElements()).execute("");
+                        new PlcReader(getApplicationContext(), develop.getVisualisation().getElements()).execute("");
                     }
                 });
             }
@@ -316,32 +228,4 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         //wykonywanie taska co 1000ms
         timer.schedule(task,0,1000);
     }
-
-
-    public int dptoPx(int dp){
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
-    public void defaultButtonCreate(String name){
-        byte[] data = new byte[1];
-        DataBlockBool statusDataBlock = new DataBlockBool(0,0,data,0);
-        DataBlockBool commandOnDataBlock = new DataBlockBool(0,0,data,1);
-        DataBlockBool commandOffDataBlock = new DataBlockBool(0,0,data,2);
-        MyButton myButton = new MyButton(this, statusDataBlock, dptoPx(Globals.posX), dptoPx(Globals.posY),
-                dptoPx(Globals.buttonHeight), dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
-        myButton.setTextOnFalse("Turn ON");
-        myButton.setTextOnTrue("Turn OFF");
-
-        myButton.setOnTrueImage(name + "1.png");
-        myButton.setOnFalseImage(name + "0.png");
-
-        myButton.updateTrueFalseImage(this);
-        myButton.updatePositionToElement();
-        myButton.drawObject(this.layout);
-        myButton.createOnTouchListener(layout);
-        visu.addElement(myButton);
-    }
-
-
 }

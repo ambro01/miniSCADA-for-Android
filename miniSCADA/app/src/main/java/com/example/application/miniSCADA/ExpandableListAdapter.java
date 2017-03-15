@@ -1,4 +1,4 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA;
 
 import java.util.HashMap;
 import java.util.List;

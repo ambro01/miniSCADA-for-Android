@@ -7,16 +7,16 @@ public class Visualisation implements Serializable{
     private static final long serialVersionUID = 1L;
     String name;
     ArrayList<Element> elements;
-    int backgrondColor;
+    int backgroundColor;
 
-    public Visualisation(String name, int backgrondColor){
+    public Visualisation(String name, int backgroundColor){
         this.name = name;
-        this.backgrondColor = backgrondColor;
+        this.backgroundColor = backgroundColor;
         elements = new ArrayList<Element>();
     }
 
     public void setBackgrondColor(int color){
-        this.backgrondColor = color;
+        this.backgroundColor = color;
     }
 
     public ArrayList<Element> getElements(){
@@ -28,7 +28,7 @@ public class Visualisation implements Serializable{
     }
 
     public int getBackgrondColor(){
-        return backgrondColor;
+        return backgroundColor;
     }
 
     public String getName(){

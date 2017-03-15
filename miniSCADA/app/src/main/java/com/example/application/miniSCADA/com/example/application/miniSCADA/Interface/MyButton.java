@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.*;
+import com.example.application.miniSCADA.PLC.DataBlockBool;
+import com.example.application.miniSCADA.PLC.PlcWriter;
 
 import Moka7.*;
 
@@ -33,25 +35,25 @@ public class MyButton extends DiscreteElement {
         this.button.setBackgroundColor(Color.WHITE);
     }
 
-    public void reCreateButton(Activity activity){
-        this.button = new Button(activity);
-        this.updateTrueFalseImage(activity);
-        this.button.setTextSize(14);
-
-        updatePositionToElement();
-        updateSizeToElement();
-    }
-
-    public Button getButton(){
-        return button;
-    }
-
     public void setTextOnTrue(String text){
         this.textOnTrue = text;
     }
 
     public void setTextOnFalse(String text){
         this.textOnFalse = text;
+    }
+
+    public Button getButton(){
+        return button;
+    }
+
+    public void reCreateElement(Activity activity){
+        this.button = new Button(activity);
+        this.updateTrueFalseImage(activity);
+        this.button.setTextSize(14);
+
+        updatePositionToElement();
+        updateSizeToElement();
     }
 
     public void updateTrueFalseImage(Context context){

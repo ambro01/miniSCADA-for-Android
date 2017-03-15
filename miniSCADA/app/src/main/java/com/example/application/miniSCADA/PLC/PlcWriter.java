@@ -1,6 +1,8 @@
-package com.example.application.miniSCADA;
+package com.example.application.miniSCADA.PLC;
 
 import android.os.AsyncTask;
+
+import com.example.application.miniSCADA.Globals;
 
 import Moka7.S7;
 import Moka7.S7Client;

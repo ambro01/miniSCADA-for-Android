@@ -1,6 +1,7 @@
 package com.example.application.miniSCADA;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.BitmapRegionDecoder;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +21,12 @@ import Moka7.S7Client;
 
 public class Globals {
    public static S7Client s7client = new S7Client();
+   public static DisplayMetrics displayMetrics;
    public static final int posX = 450;
    public static final int posY = 150;
-   public static final int buttonHeight = 10;
-   public static final int buttonWidth = 30;
+   public static final int buttonHeight = 50;
+   public static final int buttonWidth = 100;
+   public static final int circleDiameter = 50;
 
    public static void loadImage (Context context, ImageView image, String name){
       try {
@@ -43,6 +47,10 @@ public class Globals {
       catch(IOException ex) {
          return null;
       }
+   }
+
+   public static int dptoPx(int dp){
+      return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
    }
 
 }

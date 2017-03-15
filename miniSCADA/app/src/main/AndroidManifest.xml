@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,15 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".com.example.application.miniSCADA.Interface.DevelopActivity"
+            android:name=".Activities.DevelopActivity"
             android:label="@string/title_activity_develop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".com.example.application.miniSCADA.Interface.PreDevelop"
+            android:name=".Activities.PreDevelopActivity"
             android:label="@string/title_activity_pre_develop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".com.example.application.miniSCADA.Interface.ModifyActivity"
+            android:name=".Activities.ModifyActivity"
             android:label="@string/title_activity_modify"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

@@ -1,5 +1,6 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
+import android.app.Activity;
 import android.widget.RelativeLayout;
 
 import java.io.Serializable;
@@ -69,6 +70,8 @@ public abstract class Element implements Serializable{
     public abstract void updateSizeFromElement();
 
     public abstract void drawObject(RelativeLayout layout);
+
+    public abstract void reCreateElement(Activity activity);
 
     public abstract void createOnTouchListener(final RelativeLayout layout);
 }

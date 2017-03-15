@@ -1,8 +1,9 @@
-package com.example.application.miniSCADA;
+package com.example.application.miniSCADA.PLC;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteElement;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
 

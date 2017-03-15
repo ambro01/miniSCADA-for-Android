@@ -1,4 +1,4 @@
-package com.example.application.miniSCADA;
+package com.example.application.miniSCADA.PLC;
 
 import java.io.Serializable;
 
