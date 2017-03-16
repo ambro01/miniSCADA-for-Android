@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
@@ -16,6 +18,7 @@ import com.example.application.miniSCADA.PLC.PlcReader;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
 import com.example.application.miniSCADA.ExpandableListAdapter;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.MyButton;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Visualisation;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
@@ -31,7 +34,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     private Develop develop;
     private RelativeLayout layout;
-
+    private GestureDetector gestureDetector;
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
@@ -41,6 +44,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
         develop = new Develop();
+        gestureDetector = new GestureDetector(this, new SingleTapConfirm());
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_develop);
@@ -83,7 +87,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
         myButton.updatePositionToElement();
         myButton.drawObject(this.layout);
-        //myButton.createOnClickListener(view);
         myButton.createOnTouchListener(layout);
         develop.getVisualisation().addElement(myButton);
     }
@@ -93,6 +96,22 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         develop.updateSizesBeforeSaving();
         develop.serializeVisualisation(this);
     }
+
+    public void onTouchListenerSelect(View view){
+        if(develop.getVisualisation().getElements().size() > 0){
+            for (Element element : develop.getVisualisation().getElements()){
+                element.activeOnTouchListener(layout);
+            }
+        }
+    };
+
+    public void onLongClickListenerSelect(View view){
+        if(develop.getVisualisation().getElements().size() > 0){
+            for (Element element : develop.getVisualisation().getElements()){
+                element.activeOnLongClickListener();
+            }
+        }
+    };
 
 
 
@@ -151,8 +170,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                         develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
                         break;
                 }
-
-
                 itemsListView.setVisibility(View.INVISIBLE);
                 return false;
             }
@@ -227,5 +244,13 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         };
         //wykonywanie taska co 1000ms
         timer.schedule(task,0,1000);
+    }
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            return true;
+        }
     }
 }

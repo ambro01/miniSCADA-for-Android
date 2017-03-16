@@ -2,6 +2,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 
 import android.app.Activity;
+import android.view.GestureDetector;
 import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.PLC.DataBlockBool;
@@ -152,7 +153,7 @@ public class Develop {
         visualisation.addElement(myButton);
     }
 
-    public void defaultLampCreate(Activity activity, RelativeLayout layout, String name){
+    public void defaultLampCreate(Activity activity,RelativeLayout layout, String name){
         byte[] data = new byte[1];
         DataBlockBool statusDataBlock = new DataBlockBool(0,0,data,0);
         MyLamp mylamp = new MyLamp(activity, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
@@ -171,7 +172,7 @@ public class Develop {
 
     public void defaultStaticElementCreate(Activity activity, RelativeLayout layout, String name){
         StaticElement staticElement = new StaticElement(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
-                Globals.dptoPx(Globals.circleDiameter), Globals.dptoPx(Globals.circleDiameter));
+                Globals.dptoPx(Globals.elementSide), Globals.dptoPx(Globals.elementSide));
 
         staticElement.setImageName(name + "0.png");
 

@@ -27,6 +27,7 @@ public class Globals {
    public static final int buttonHeight = 50;
    public static final int buttonWidth = 100;
    public static final int circleDiameter = 50;
+   public static final int elementSide = 100;
 
    public static void loadImage (Context context, ImageView image, String name){
       try {

@@ -82,4 +82,24 @@ public class StaticElement extends Element{
         });
     }
 
+    public void createOnLongClickListener(){
+        image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("---------------------long click");
+                return true;
+            }
+        });
+    }
+
+    public void activeOnLongClickListener(){
+        createOnLongClickListener();
+        image.setOnTouchListener(null);
+    }
+
+    public void activeOnTouchListener(RelativeLayout layout){
+        createOnTouchListener(layout);
+        image.setOnLongClickListener(null);
+    }
+
 }

@@ -20,11 +20,9 @@
         android:id="@+id/button4"
         android:nestedScrollingEnabled="false"
         android:onClick="onButtonCreate"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button7"
-        android:layout_toStartOf="@+id/button7"
         android:layout_marginRight="17dp"
-        android:layout_marginEnd="17dp" />
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/button7" />
 
     <Button
         android:layout_width="100dp"
@@ -33,7 +31,6 @@
         android:id="@+id/button7"
         android:onClick="onSaveProject"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -74,5 +71,25 @@
         android:layout_below="@+id/button4"
         android:layout_alignRight="@+id/button10"
         android:layout_alignEnd="@+id/button10" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text=">"
+        android:id="@+id/button3"
+        android:layout_above="@+id/emptyImageView"
+        android:layout_toStartOf="@+id/button4"
+        android:onClick="onTouchListenerSelect" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="."
+        android:id="@+id/button11"
+        android:layout_above="@+id/emptyImageView"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLongClickListenerSelect" />
 
 </RelativeLayout>

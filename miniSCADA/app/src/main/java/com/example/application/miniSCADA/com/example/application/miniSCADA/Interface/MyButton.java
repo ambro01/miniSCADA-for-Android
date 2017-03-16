@@ -98,27 +98,27 @@ public class MyButton extends DiscreteElement {
         layout.addView(this.button);
     }
 
-    public void createOnClickListener(View view){
+    public void createOnClickListener(){
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                executeCommand();
+                //executeCommand();
+                System.out.println("click-------------------------------");
             }
         });
     }
-/*
-    public void createOnLongClickListener(View view){
-        button.setOnLongClickListener(new View.OnLongClickListener(){
+
+    public void createOnLongClickListener(){
+        button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipData clipData = ClipData.newPlainText("","");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(button);
-                button.startDrag(clipData, shadowBuilder, button, 0);
+                System.out.println("---------------------long click");
                 return true;
             }
         });
     }
 
+/*
     public void createOnDragListener(View v){
         button.setOnDragListener(new View.OnDragListener(){
             @Override
@@ -159,8 +159,18 @@ public class MyButton extends DiscreteElement {
                         button.setLayoutParams(params);
                         break;
                 }
-                return true;
+                return false;
             }
         });
+    }
+
+    public void activeOnLongClickListener(){
+        createOnLongClickListener();
+        button.setOnTouchListener(null);
+    }
+
+    public void activeOnTouchListener(RelativeLayout layout){
+        createOnTouchListener(layout);
+        button.setOnLongClickListener(null);
     }
 }

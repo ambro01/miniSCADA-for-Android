@@ -3,6 +3,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -80,5 +81,25 @@ public class MyLamp extends DiscreteElement{
                 return true;
             }
         });
+    }
+
+    public void createOnLongClickListener(){
+        image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("---------------------long click");
+                return true;
+            }
+        });
+    }
+
+    public void activeOnLongClickListener(){
+        createOnLongClickListener();
+        image.setOnTouchListener(null);
+    }
+
+    public void activeOnTouchListener(RelativeLayout layout){
+        createOnTouchListener(layout);
+        image.setOnLongClickListener(null);
     }
 }
