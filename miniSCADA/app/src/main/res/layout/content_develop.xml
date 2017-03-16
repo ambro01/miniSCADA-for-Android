@@ -92,4 +92,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="onLongClickListenerSelect" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="POP"
+        android:id="@+id/button12"
+        android:layout_above="@+id/emptyImageView"
+        android:layout_toStartOf="@+id/button11"
+        android:onClick="onPopupShow" />
+
 </RelativeLayout>

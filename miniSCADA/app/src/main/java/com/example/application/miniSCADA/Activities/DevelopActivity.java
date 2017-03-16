@@ -1,5 +1,6 @@
 package com.example.application.miniSCADA.Activities;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.PlcReader;
+import com.example.application.miniSCADA.Popup;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
 import com.example.application.miniSCADA.ExpandableListAdapter;
@@ -71,6 +73,10 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     }
 
     //------------------BUTTON ACTIONS------------------------
+
+    public void onPopupShow(View view){
+        startActivity(new Intent(this, Popup.class));
+    }
 
     public void onButtonCreate(View view){
         byte[] data = new byte[1];
