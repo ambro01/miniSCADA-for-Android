@@ -2,6 +2,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
@@ -108,11 +109,14 @@ public class MyButton extends DiscreteElement {
         });
     }
 
-    public void createOnLongClickListener(){
+    public void createOnLongClickListener(final Activity activity, final Develop develop){
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                System.out.println("---------------------long click");
+                develop.setActiveElement(MyButton.this);
+                Intent startPopup = new Intent(activity, Popup.class);
+                startPopup.putExtra("Bits", "yes");
+                activity.startActivity(startPopup);
                 return true;
             }
         });
@@ -164,8 +168,8 @@ public class MyButton extends DiscreteElement {
         });
     }
 
-    public void activeOnLongClickListener(){
-        createOnLongClickListener();
+    public void activeOnLongClickListener(Activity activity){
+        createOnLongClickListener(activity);
         button.setOnTouchListener(null);
     }
 

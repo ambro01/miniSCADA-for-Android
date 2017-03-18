@@ -82,7 +82,7 @@ public class StaticElement extends Element{
         });
     }
 
-    public void createOnLongClickListener(){
+    public void createOnLongClickListener(Activity activity){
         image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -92,8 +92,8 @@ public class StaticElement extends Element{
         });
     }
 
-    public void activeOnLongClickListener(){
-        createOnLongClickListener();
+    public void activeOnLongClickListener(Activity activity){
+        createOnLongClickListener(activity);
         image.setOnTouchListener(null);
     }
 

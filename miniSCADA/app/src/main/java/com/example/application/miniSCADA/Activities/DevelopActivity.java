@@ -1,5 +1,6 @@
 package com.example.application.miniSCADA.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
@@ -70,6 +72,19 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
             develop.deserializeVisualisation(this, layout, projectName);
         }
         prepareListView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     //------------------BUTTON ACTIONS------------------------
@@ -114,7 +129,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     public void onLongClickListenerSelect(View view){
         if(develop.getVisualisation().getElements().size() > 0){
             for (Element element : develop.getVisualisation().getElements()){
-                element.activeOnLongClickListener();
+                element.activeOnLongClickListener(this);
             }
         }
     };

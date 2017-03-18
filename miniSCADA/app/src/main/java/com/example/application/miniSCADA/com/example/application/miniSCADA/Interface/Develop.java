@@ -18,6 +18,15 @@ import java.io.ObjectOutputStream;
 
 public class Develop {
     private Visualisation visualisation;
+    private Element activeElement;
+
+    public void setActiveElement(Element element){
+        activeElement = element;
+    }
+
+    public Element getActiveElement(){
+        return activeElement;
+    }
 
     public void setVisualisation(Visualisation visu){
         visualisation = visu;
