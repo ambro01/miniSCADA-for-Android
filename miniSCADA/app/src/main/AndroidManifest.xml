@@ -33,7 +33,7 @@
             android:label="@string/title_activity_modify"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Popup"
-            android:theme="@style/AppTheme.CustomTheme">
+            android:theme="@android:style/Theme.Dialog">
         </activity>
     </application>
 

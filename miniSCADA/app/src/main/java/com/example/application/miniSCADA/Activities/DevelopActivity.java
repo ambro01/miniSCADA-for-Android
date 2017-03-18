@@ -8,10 +8,17 @@ import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
@@ -37,10 +44,14 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     private Develop develop;
     private RelativeLayout layout;
     private GestureDetector gestureDetector;
+    private LayoutInflater layoutInflater;
+
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+
+    private PopupWindow popUpWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +86,15 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     //------------------BUTTON ACTIONS------------------------
 
     public void onPopupShow(View view){
-        startActivity(new Intent(this, Popup.class));
+       // startActivity(new Intent(this, Popup.class));
+        layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_window,null);
+        popUpWindow = new PopupWindow(container,Globals.dptoPx(Globals.popupWidth), Globals.dptoPx(Globals.popupHeight), false);
+        popUpWindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
+    }
+
+    public void onClosePopup(){
+        popUpWindow.dismiss();
     }
 
     public void onButtonCreate(View view){
