@@ -28,8 +28,6 @@ public class Globals {
    public static final int buttonWidth = 100;
    public static final int circleDiameter = 50;
    public static final int elementSide = 100;
-   public static final int popupWidth = 480;
-   public static final int popupHeight = 150;
 
    public static void loadImage (Context context, ImageView image, String name){
       try {

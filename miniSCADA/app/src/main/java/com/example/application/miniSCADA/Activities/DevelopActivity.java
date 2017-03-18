@@ -79,13 +79,14 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("result");
+                develop.getActiveElement().createDataBlocksFromPopup(data);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
     }
+
 
     //------------------BUTTON ACTIONS------------------------
 
@@ -98,6 +99,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         DataBlockBool statusDataBlock = new DataBlockBool(7,4,data,0);
         DataBlockBool commandOnDataBlock = new DataBlockBool(7,4,data,1);
         DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,2);
+
         MyButton myButton = new MyButton(this, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
                 Globals.dptoPx(Globals.buttonHeight), Globals.dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
         myButton.setTextOnFalse("Turn ON");
@@ -129,7 +131,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     public void onLongClickListenerSelect(View view){
         if(develop.getVisualisation().getElements().size() > 0){
             for (Element element : develop.getVisualisation().getElements()){
-                element.activeOnLongClickListener(this);
+                element.activeOnLongClickListener(this, develop);
             }
         }
     };

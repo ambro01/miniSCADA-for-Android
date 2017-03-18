@@ -43,6 +43,10 @@ public abstract class DiscreteElement extends Element{
         return statusDataBlock;
     }
 
+    public void setStatusDataBlock(DataBlockBool dataBlock){
+        this.statusDataBlock = dataBlock;
+    }
+
     public void updateStatus(){
         this.status = S7.GetBitAt(statusDataBlock.getData(),0,statusDataBlock.getBitPosition());
     }

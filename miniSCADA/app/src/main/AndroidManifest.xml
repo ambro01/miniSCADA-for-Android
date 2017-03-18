@@ -32,8 +32,13 @@
             android:name=".Activities.ModifyActivity"
             android:label="@string/title_activity_modify"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Popup"
-            android:theme="@style/AppTheme.CustomTheme">
+        <activity
+            android:name=".PopupStatusCommand"
+            android:theme="@style/myDialog">
+        </activity>
+        <activity
+            android:name=".PopupStatus"
+            android:theme="@style/myDialog">
         </activity>
     </application>
 

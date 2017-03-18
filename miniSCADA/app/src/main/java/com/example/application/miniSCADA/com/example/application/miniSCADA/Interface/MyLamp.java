@@ -2,6 +2,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -11,6 +12,8 @@ import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.DataBlockBool;
+import com.example.application.miniSCADA.PopupStatus;
+import com.example.application.miniSCADA.PopupStatusCommand;
 
 public class MyLamp extends DiscreteElement{
     private transient ImageView image;
@@ -83,23 +86,37 @@ public class MyLamp extends DiscreteElement{
         });
     }
 
-    public void createOnLongClickListener(Activity activity){
+    public void createOnLongClickListener(final Activity activity, final Develop develop){
         image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                System.out.println("---------------------long click");
+                develop.setActiveElement(MyLamp.this);
+                Intent startPopup = new Intent(activity, PopupStatus.class);
+                activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
     }
 
-    public void activeOnLongClickListener(Activity activity){
-        createOnLongClickListener(activity);
+    public void activeOnLongClickListener(Activity activity, Develop develop){
+        createOnLongClickListener(activity, develop);
         image.setOnTouchListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
         image.setOnLongClickListener(null);
+    }
+
+    public void createDataBlocksFromPopup(Intent intent){
+        int dbNumber;
+        int wordNumber;
+        int bitNumber;
+
+        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_status"));
+        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_status"));
+        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_status"));
+        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
+
     }
 }

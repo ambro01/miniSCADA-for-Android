@@ -114,9 +114,8 @@ public class MyButton extends DiscreteElement {
             @Override
             public boolean onLongClick(View v) {
                 develop.setActiveElement(MyButton.this);
-                Intent startPopup = new Intent(activity, Popup.class);
-                startPopup.putExtra("Bits", "yes");
-                activity.startActivity(startPopup);
+                Intent startPopup = new Intent(activity, PopupStatusCommand.class);
+                activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
@@ -168,13 +167,34 @@ public class MyButton extends DiscreteElement {
         });
     }
 
-    public void activeOnLongClickListener(Activity activity){
-        createOnLongClickListener(activity);
+    public void activeOnLongClickListener(Activity activity, Develop develop){
+        createOnLongClickListener(activity, develop);
         button.setOnTouchListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
         button.setOnLongClickListener(null);
+    }
+
+    public void createDataBlocksFromPopup(Intent intent){
+        int dbNumber;
+        int wordNumber;
+        int bitNumber;
+
+        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_status"));
+        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_status"));
+        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_status"));
+        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
+
+        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_commandTrue"));
+        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_commandTrue"));
+        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_commandTrue"));
+        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
+
+        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_commandFalse"));
+        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_commandFalse"));
+        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_commandFalse"));
+        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
     }
 }

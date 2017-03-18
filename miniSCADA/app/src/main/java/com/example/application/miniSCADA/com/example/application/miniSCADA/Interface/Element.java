@@ -1,6 +1,7 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.RelativeLayout;
 
 import java.io.Serializable;
@@ -75,8 +76,11 @@ public abstract class Element implements Serializable{
 
     public abstract void createOnTouchListener(final RelativeLayout layout);
 
-    public abstract void createOnLongClickListener(Activity activity);
+    public abstract void createOnLongClickListener(Activity activity, Develop develop);
 
-    public abstract void activeOnLongClickListener(Activity activity);
+    public abstract void activeOnLongClickListener(Activity activity,Develop develop);
+
     public abstract void activeOnTouchListener(RelativeLayout layout);
+
+    public abstract void createDataBlocksFromPopup(Intent intent);
 }

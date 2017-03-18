@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="420dp" android:layout_height="260dp"
+    android:focusable="true"
+    android:background="#7d7676"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Data Block:"
+            android:id="@+id/textView2"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_above="@+id/wordNumber_only_status"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="105dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Word:"
+            android:id="@+id/textView3"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/dbNumber_only_status"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_marginLeft="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Bit:"
+            android:id="@+id/textView4"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/wordNumber_only_status"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginLeft="75dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="0.18"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Status"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:id="@+id/textView5"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/dbNumber_only_status"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="22dp" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/wordNumber_only_status"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_toEndOf="@+id/textView2"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="55dp" />
+
+        <Spinner
+            android:id="@+id/bitIndex_both_status"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/bitIndex"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="48dp"
+            android:minWidth="50dp"
+            android:dropDownWidth="40dp"
+            android:textAlignment="center"
+            android:spinnerMode="dropdown"
+            android:dropDownSelector="#696262" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="0.13">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="42dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Command TRUE"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:id="@+id/textView7"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/dbNumber_both_commandTrue"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="22dp" />
+
+        <EditText
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/wordNumber_both_commandTrue"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_toEndOf="@+id/textView2"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="55dp" />
+
+        <Spinner
+            android:id="@+id/bitIndex_both_commandTrue"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:drawSelectorOnTop="true"
+            android:layout_gravity="center_vertical"
+            android:entries="@array/bitIndex"
+            android:layout_marginLeft="48dp"
+            android:spinnerMode="dropdown"
+            android:dropDownWidth="40dp"
+            android:textAlignment="center"
+            android:dropDownSelector="#696262"
+            android:minWidth="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="57dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Command FALSE"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:id="@+id/textView11"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/dbNumber_both_commandFalse"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="22dp" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/wordNumber_both_commandFalse"
+            android:textSize="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignBottom="@+id/textView12"
+            android:layout_toEndOf="@+id/textView2"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="55dp" />
+
+        <Spinner
+            android:id="@+id/bitIndex_both_commandFalse"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/bitIndex"
+            android:layout_marginLeft="48dp"
+            android:spinnerMode="dropdown"
+            android:dropDownWidth="40dp"
+            android:textAlignment="center"
+            android:dropDownSelector="#696262"
+            android:minWidth="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="OK"
+            android:id="@+id/button13"
+            android:onClick="onConfirmPopup"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/bitIndeks_both_status"
+            android:layout_marginLeft="200dp"
+            android:layout_weight="0.08" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Close"
+            android:id="@+id/button14"
+            android:onClick="onClosePopup"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/button13" />
+    </LinearLayout>
+
+</LinearLayout>
