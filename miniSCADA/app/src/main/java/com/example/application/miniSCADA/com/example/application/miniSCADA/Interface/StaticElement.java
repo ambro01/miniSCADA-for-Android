@@ -87,7 +87,7 @@ public class StaticElement extends Element{
         image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                System.out.println("---------------------long click");
+                //nothing to do
                 return true;
             }
         });
@@ -103,7 +103,7 @@ public class StaticElement extends Element{
         image.setOnLongClickListener(null);
     }
 
-    public void createDataBlocksFromPopup(Intent intent){
+    public void createDataFromPopup(Intent intent){
         //nothing to do
     }
 

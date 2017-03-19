@@ -40,6 +40,18 @@
             android:name=".PopupStatus"
             android:theme="@style/myDialog">
         </activity>
+        <activity
+            android:name=".PopupLabel"
+            android:theme="@style/myDialog">
+        </activity>
+        <activity
+            android:name=".PopupAnalogSetpoint"
+            android:theme="@style/myDialog">
+        </activity>
+        <activity
+            android:name=".PopupAnalog"
+            android:theme="@style/myDialog">
+        </activity>
     </application>
 
 </manifest>

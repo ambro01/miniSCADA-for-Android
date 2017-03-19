@@ -19,7 +19,7 @@
             android:id="@+id/textView2"
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
-            android:layout_above="@+id/wordNumber_only_status"
+            android:layout_above="@+id/wordNumber_analog"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="105dp" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/textView3"
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
-            android:layout_below="@+id/dbNumber_only_status"
+            android:layout_below="@+id/setpointValue"
             android:layout_alignStart="@+id/textView2"
             android:layout_marginLeft="30dp" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/textView4"
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
-            android:layout_below="@+id/wordNumber_only_status"
+            android:layout_below="@+id/wordNumber_analog"
             android:layout_alignStart="@+id/textView3"
             android:layout_marginLeft="75dp" />
 
@@ -72,11 +72,11 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/dbNumber_only_status"
+            android:id="@+id/setpointValue"
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:layout_alignStart="@+id/wordNumber_analog"
             android:imeOptions="actionDone"
             android:layout_marginLeft="22dp" />
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/wordNumber_only_status"
+            android:id="@+id/wordNumber_analog"
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
             android:layout_alignBottom="@+id/textView3"
@@ -135,7 +135,7 @@
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:layout_alignStart="@+id/wordNumber_analog"
             android:imeOptions="actionDone"
             android:layout_marginLeft="22dp" />
 
@@ -193,7 +193,7 @@
             android:textSize="18dp"
             android:layout_gravity="center_vertical"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/wordNumber_only_status"
+            android:layout_alignStart="@+id/wordNumber_analog"
             android:imeOptions="actionDone"
             android:layout_marginLeft="22dp" />
 

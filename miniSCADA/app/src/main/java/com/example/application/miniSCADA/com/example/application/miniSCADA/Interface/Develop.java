@@ -117,6 +117,24 @@ public class Develop {
                 staticElement.updateTrueFalseImage(activity);
                 staticElement.drawObject(layout);
                 staticElement.createOnTouchListener(layout);
+            } else if(element instanceof AnalogDisplay) {
+                if(element instanceof AnalogInput){
+                    AnalogInput analogInput = (AnalogInput) element;
+                    analogInput.reCreateElement(activity);
+                    analogInput.drawObject(layout);
+                    analogInput.createOnTouchListener(layout);
+                } else {
+                    AnalogDisplay analogDisplay = (AnalogDisplay) element;
+                    analogDisplay.reCreateElement(activity);
+                    analogDisplay.drawObject(layout);
+                    analogDisplay.createOnTouchListener(layout);
+                }
+            }
+            else if(element instanceof Label){
+                Label label = (Label) element;
+                label.reCreateElement(activity);
+                label.drawObject(layout);
+                label.createOnTouchListener(layout);
             }
         }
     }
@@ -133,6 +151,24 @@ public class Develop {
                     break;
                 case "Lamp":
                     defaultLampCreate(activity, layout, itemName);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void createAnalogControlFromName(Activity activity, RelativeLayout layout, String itemName){
+        if(!itemName.isEmpty()){
+            switch (itemName) {
+                case "Analog Input":
+                    defaultAnalogInputCreate(activity, layout);
+                    break;
+                case "Analog Display":
+                    defaultAnalogDisplayCreate(activity, layout);
+                    break;
+                case "Label":
+                    defaultLabelCreate(activity, layout);
                     break;
                 default:
                     break;
@@ -196,5 +232,38 @@ public class Develop {
         staticElement.drawObject(layout);
         staticElement.createOnTouchListener(layout);
         visualisation.addElement(staticElement);
+    }
+
+    public void defaultAnalogInputCreate(Activity activity, RelativeLayout layout){
+        AnalogInput analogInput = new AnalogInput(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                Globals.dptoPx(Globals.analogHeight), Globals.dptoPx(Globals.analogWidth));
+
+        analogInput.updatePositionToElement();
+        analogInput.updateSizeToElement();
+        analogInput.drawObject(layout);
+        analogInput.createOnTouchListener(layout);
+        visualisation.addElement(analogInput);
+    }
+
+    public void defaultAnalogDisplayCreate(Activity activity, RelativeLayout layout){
+        AnalogDisplay analogDisplay = new AnalogDisplay(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                Globals.dptoPx(Globals.analogHeight), Globals.dptoPx(Globals.analogWidth));
+
+        analogDisplay.updatePositionToElement();
+        analogDisplay.updateSizeToElement();
+        analogDisplay.drawObject(layout);
+        analogDisplay.createOnTouchListener(layout);
+        visualisation.addElement(analogDisplay);
+    }
+
+    public void defaultLabelCreate(Activity activity, RelativeLayout layout){
+        Label label = new Label(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                Globals.dptoPx(Globals.analogHeight), Globals.dptoPx(Globals.analogWidth));
+
+        label.updatePositionToElement();
+        label.updateSizeToElement();
+        label.drawObject(layout);
+        label.createOnTouchListener(layout);
+        visualisation.addElement(label);
     }
 }

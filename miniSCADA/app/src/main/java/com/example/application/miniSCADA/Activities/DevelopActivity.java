@@ -79,7 +79,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                develop.getActiveElement().createDataBlocksFromPopup(data);
+                develop.getActiveElement().createDataFromPopup(data);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -188,6 +188,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                         develop.createDiscreteControlFromName(DevelopActivity.this, layout, itemName);
                         break;
                     case "Analog Controls":
+                        develop.createAnalogControlFromName(DevelopActivity.this, layout, itemName);
                         break;
                     case "Static Elements":
                         develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
@@ -214,7 +215,9 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         discreteControls.add("Lamp");
 
         List<String> analogControls = new ArrayList<String>();
-        analogControls.add("Float Display");
+        analogControls.add("Analog Input");
+        analogControls.add("Analog Display");
+        analogControls.add("Label");
 
         List<String> staticElements = new ArrayList<String>();
         staticElements.add("Pipe Vertical");

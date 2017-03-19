@@ -177,7 +177,7 @@ public class MyButton extends DiscreteElement {
         button.setOnLongClickListener(null);
     }
 
-    public void createDataBlocksFromPopup(Intent intent){
+    public void createDataFromPopup(Intent intent){
         int dbNumber;
         int wordNumber;
         int bitNumber;

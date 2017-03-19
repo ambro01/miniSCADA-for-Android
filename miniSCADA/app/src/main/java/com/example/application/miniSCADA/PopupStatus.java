@@ -25,8 +25,8 @@ public class PopupStatus extends Popup{
 
     public void onConfirmPopup(View view){
         Intent returnIntent = new Intent();
-        EditText dbNumber_status = (EditText) findViewById(R.id.dbNumber_only_status);
-        EditText wordNumber_status = (EditText) findViewById(R.id.wordNumber_only_status);
+        EditText dbNumber_status = (EditText) findViewById(R.id.setpointValue);
+        EditText wordNumber_status = (EditText) findViewById(R.id.wordNumber_analog);
         returnIntent.putExtra("dbNumber_status",dbNumber_status.getText().toString());
         returnIntent.putExtra("wordNumber_status",wordNumber_status.getText().toString());
 

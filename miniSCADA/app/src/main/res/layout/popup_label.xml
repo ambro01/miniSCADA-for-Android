@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp" android:layout_height="90dp"
+    android:focusable="true"
+    android:background="#7d7676"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Text:"
+            android:layout_marginStart="10dp"
+            android:id="@+id/textView5"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/setpointValue"
+            android:textSize="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/wordNumber_analog"
+            android:layout_marginLeft="22dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="OK"
+            android:id="@+id/button13"
+            android:onClick="onConfirmPopup"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/bitIndeks_both_status"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.08" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Close"
+            android:id="@+id/button14"
+            android:onClick="onClosePopup"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/button13" />
+    </LinearLayout>
+
+</LinearLayout>

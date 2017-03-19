@@ -1,69 +1,82 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.PLC.DataBlockBool;
-import com.example.application.miniSCADA.PopupStatus;
-import com.example.application.miniSCADA.PopupStatusCommand;
+import com.example.application.miniSCADA.PLC.DataBlockReal;
+import com.example.application.miniSCADA.PopupAnalog;
+import com.example.application.miniSCADA.R;
 
-public class MyLamp extends DiscreteElement{
-    private transient ImageView image;
+public class AnalogDisplay extends Element{
+    private transient TextView displayValue;
+    private DataBlockReal outputDataBlock;
 
-    public MyLamp(Activity activity, DataBlockBool statusDataBlock, int x, int y, int height, int width){
-        super(statusDataBlock,x,y,height,width);
-        image = new ImageView(activity);
-        image.setBackgroundColor(Color.RED);
+    public AnalogDisplay(Activity activity, int x, int y, int height, int width){
+        super(x,y,height,width);
+        displayValue = new TextView(activity);
+        defaultSettings();
+    }
+
+    public void defaultSettings(){
+        displayValue.setBackgroundResource(R.drawable.display_analog);
+        displayValue.setTextSize(16);
+        displayValue.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        displayValue.setText("Display");
+    }
+
+    public TextView getDisplayValue(){
+        return displayValue;
+    }
+
+    public DataBlockReal getDataBlock(){
+        return outputDataBlock;
+    }
+
+    public DataBlockReal getOutputDataBlock(){
+        return outputDataBlock;
+    }
+
+    public void setOutputDataBlock(DataBlockReal dataBlock){
+        outputDataBlock = dataBlock;
+    }
+
+    public void updatePositionToElement(){
+        displayValue.setX(this.getPositionX());
+        displayValue.setY(this.getPositionY());
+    }
+
+    public void updatePositionFromElement(){
+        this.setPosition((int)displayValue.getX(), (int)displayValue.getY());
+    }
+
+    public void updateSizeToElement(){
+        displayValue.setMinimumHeight(this.getHeight());
+        displayValue.setMinimumWidth(this.getWidth());
+    }
+
+    public void updateSizeFromElement(){
+        this.setSize(displayValue.getHeight(), displayValue.getWidth());
+    }
+
+    public void drawObject(RelativeLayout layout){
+        layout.addView(displayValue);
     }
 
     public void reCreateElement(Activity activity){
-        this.image = new ImageView(activity);
-        this.updateTrueFalseImage(activity);
+        displayValue = new TextView(activity);
+        defaultSettings();
 
         updatePositionToElement();
         updateSizeToElement();
     }
 
-    public void updateTrueFalseImage(Context context){
-        if (this.getStatus()) {
-            image.setBackground(Globals.loadImageToDrawable(context, this.getOnTrueImage()));
-        } else {
-            image.setBackground(Globals.loadImageToDrawable(context, this.getOnFalseImage()));
-        }
-    }
-
-    public void updatePositionToElement(){
-        image.setX(this.getPositionX());
-        image.setY(this.getPositionY());
-    }
-
-    public void updatePositionFromElement(){
-        this.setPosition((int)image.getX(), (int)image.getY());
-    }
-
-    public void updateSizeToElement(){
-        image.setMinimumHeight(this.getHeight());
-        image.setMinimumWidth(this.getWidth());
-    }
-
-    public void updateSizeFromElement(){
-        this.setSize(image.getHeight(), image.getWidth());
-    }
-
-    public void drawObject(RelativeLayout layout){
-        layout.addView(image);
-    }
-
     public void createOnTouchListener(final RelativeLayout layout){
-        image.setOnTouchListener(new View.OnTouchListener() {
+        displayValue.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent me) {
                 switch (me.getAction() & MotionEvent.ACTION_MASK){
@@ -78,7 +91,7 @@ public class MyLamp extends DiscreteElement{
                         params.topMargin = (int)(me.getRawY() - getOldYposition());
                         params.rightMargin = -250;
                         params.bottomMargin = -250;
-                        image.setLayoutParams(params);
+                        displayValue.setLayoutParams(params);
                         break;
                 }
                 return true;
@@ -87,36 +100,33 @@ public class MyLamp extends DiscreteElement{
     }
 
     public void createOnLongClickListener(final Activity activity, final Develop develop){
-        image.setOnLongClickListener(new View.OnLongClickListener() {
+        displayValue.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                develop.setActiveElement(MyLamp.this);
-                Intent startPopup = new Intent(activity, PopupStatus.class);
+                develop.setActiveElement(AnalogDisplay.this);
+                Intent startPopup = new Intent(activity, PopupAnalog.class);
                 activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
     }
 
-    public void activeOnLongClickListener(Activity activity, Develop develop){
+    public void activeOnLongClickListener(Activity activity,Develop develop){
         createOnLongClickListener(activity, develop);
-        image.setOnTouchListener(null);
+        displayValue.setOnTouchListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
-        image.setOnLongClickListener(null);
+        displayValue.setOnLongClickListener(null);
     }
 
     public void createDataFromPopup(Intent intent){
         int dbNumber;
         int wordNumber;
-        int bitNumber;
 
         dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_status"));
         wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_status"));
-        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_status"));
-        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
-
+        setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[1]));
     }
 }
