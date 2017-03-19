@@ -37,7 +37,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     private Develop develop;
     private RelativeLayout layout;
-    private GestureDetector gestureDetector;
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
@@ -48,13 +47,12 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
         develop = new Develop();
-        gestureDetector = new GestureDetector(this, new SingleTapConfirm());
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_develop);
         Globals.displayMetrics = getResources().getDisplayMetrics();
 
-        layout = (RelativeLayout) findViewById(R.id.develop_root);
+        layout = (RelativeLayout) findViewById(R.id.developLayout);
         String deserialize = "";
 
         Bundle extras = getIntent().getExtras();
@@ -90,30 +88,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     //------------------BUTTON ACTIONS------------------------
 
-    public void onPopupShow(View view){
-        startActivity(new Intent(this, Popup.class));
-    }
-
-    public void onButtonCreate(View view){
-        byte[] data = new byte[1];
-        DataBlockBool statusDataBlock = new DataBlockBool(7,4,data,0);
-        DataBlockBool commandOnDataBlock = new DataBlockBool(7,4,data,1);
-        DataBlockBool commandOffDataBlock = new DataBlockBool(7,4,data,2);
-
-        MyButton myButton = new MyButton(this, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
-                Globals.dptoPx(Globals.buttonHeight), Globals.dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
-        myButton.setTextOnFalse("Turn ON");
-        myButton.setTextOnTrue("Turn OFF");
-        myButton.setOnTrueImage("Button1.png");
-        myButton.setOnFalseImage("Button0.png");
-        myButton.updateTrueFalseImage(this);
-
-        myButton.updatePositionToElement();
-        myButton.drawObject(this.layout);
-        myButton.createOnTouchListener(layout);
-        develop.getVisualisation().addElement(myButton);
-    }
-
     public void onSaveProject(View view){
         develop.updatePositionsBeforeSaving();
         develop.updateSizesBeforeSaving();
@@ -135,8 +109,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
             }
         }
     };
-
-
 
     public void onBackgroundColorChange(View view){
         onColorSelect(view);
@@ -194,6 +166,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                         develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
                         break;
                 }
+                parent.collapseGroup(groupPosition);
                 itemsListView.setVisibility(View.INVISIBLE);
                 return false;
             }
@@ -270,13 +243,5 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         };
         //wykonywanie taska co 1000ms
         timer.schedule(task,0,1000);
-    }
-
-    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onSingleTapUp(MotionEvent event) {
-            return true;
-        }
     }
 }

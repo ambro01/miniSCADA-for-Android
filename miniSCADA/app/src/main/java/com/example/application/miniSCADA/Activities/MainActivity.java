@@ -29,4 +29,9 @@ public class MainActivity extends AppCompatActivity {
         Intent startModifyActivity = new Intent(getApplicationContext(), ModifyActivity.class);
         startActivity(startModifyActivity);
     }
+
+    public void onDisplayVisualisation(View view){
+        Intent startPreRuntimeActivity = new Intent(getApplicationContext(), PreRuntimeActivity.class);
+        startActivity(startPreRuntimeActivity);
+    }
 }

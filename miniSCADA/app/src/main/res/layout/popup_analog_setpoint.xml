@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="240dp" android:layout_height="90dp"
     android:focusable="true"
-    android:background="#7d7676"
+    android:background="@color/popup"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -23,16 +23,13 @@
             android:textAlignment="center" />
 
         <EditText
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/setpointValue"
-            android:textSize="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/wordNumber_analog"
-            android:layout_marginLeft="22dp"
-            android:layout_weight="0.15" />
+            android:layout_weight="0.53"
+            android:layout_marginLeft="10dp" />
 
     </LinearLayout>
 

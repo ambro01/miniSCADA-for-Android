@@ -97,10 +97,16 @@ public class Label extends Element {
             public boolean onLongClick(View v) {
                 develop.setActiveElement(Label.this);
                 Intent startPopup = new Intent(activity, PopupLabel.class);
+                startPopup.putExtra("text", text);
+                activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
+    }
+
+    public void createOnClickListener(Activity activity, Runtime runtime){
+        //nothing to do
     }
 
     public void activeOnLongClickListener(Activity activity,Develop develop){

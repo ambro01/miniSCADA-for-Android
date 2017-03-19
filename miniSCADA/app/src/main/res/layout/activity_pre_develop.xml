@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Activities.PreDevelopActivity">
+    tools:context=".Activities.PreDevelopActivity"
+    android:background="@color/mainBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +15,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_pre_develop" />
-
+    <include layout="@layout/content_develop_menu" />
 
 </android.support.design.widget.CoordinatorLayout>

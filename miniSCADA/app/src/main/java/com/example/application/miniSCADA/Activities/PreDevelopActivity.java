@@ -25,6 +25,7 @@ public class PreDevelopActivity extends AppCompatActivity{
         String projectName;
         TextView name = (TextView) findViewById(R.id.nameOfNewPoject);
         projectName = name.getText().toString();
+        name.setText("");
 
         Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
         startDevelopActivity.putExtra("projectName", projectName);

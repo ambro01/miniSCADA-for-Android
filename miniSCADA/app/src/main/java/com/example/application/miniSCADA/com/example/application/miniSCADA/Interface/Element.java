@@ -78,6 +78,8 @@ public abstract class Element implements Serializable{
 
     public abstract void createOnLongClickListener(Activity activity, Develop develop);
 
+    public abstract void createOnClickListener(Activity activity, Runtime runtime);
+
     public abstract void activeOnLongClickListener(Activity activity,Develop develop);
 
     public abstract void activeOnTouchListener(RelativeLayout layout);

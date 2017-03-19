@@ -92,10 +92,16 @@ public class MyLamp extends DiscreteElement{
             public boolean onLongClick(View v) {
                 develop.setActiveElement(MyLamp.this);
                 Intent startPopup = new Intent(activity, PopupStatus.class);
+                startPopup.putExtra("statusDataBlock",getStatusDataBlock());
+                activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
+    }
+
+    public void createOnClickListener(Activity activity, Runtime runtime){
+        //nothing to do
     }
 
     public void activeOnLongClickListener(Activity activity, Develop develop){

@@ -48,6 +48,22 @@ public class MyButton extends DiscreteElement {
         return button;
     }
 
+    public DataBlockBool getCommandOnDataBlock(){
+        return commandOnDataBlock;
+    }
+
+    public DataBlockBool getCommandOffDataBlock(){
+        return commandOffDataBlock;
+    }
+
+    public void setCommandOnDataBlock(DataBlockBool dataBlock){
+        commandOnDataBlock = dataBlock;
+    }
+
+    public void setCommandOffDataBlock(DataBlockBool dataBlock){
+        commandOffDataBlock = dataBlock;
+    }
+
     public void reCreateElement(Activity activity){
         this.button = new Button(activity);
         this.updateTrueFalseImage(activity);
@@ -99,49 +115,21 @@ public class MyButton extends DiscreteElement {
         layout.addView(this.button);
     }
 
-    public void createOnClickListener(){
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //executeCommand();
-                System.out.println("click-------------------------------");
-            }
-        });
-    }
-
     public void createOnLongClickListener(final Activity activity, final Develop develop){
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 develop.setActiveElement(MyButton.this);
                 Intent startPopup = new Intent(activity, PopupStatusCommand.class);
-                activity.startActivityForResult(startPopup,1);
+                startPopup.putExtra("statusDataBlock",getStatusDataBlock());
+                startPopup.putExtra("commandOnDataBlock",getCommandOnDataBlock());
+                startPopup.putExtra("commandOffDataBlock",getCommandOffDataBlock());
+                activity.setResult(Activity.RESULT_OK,startPopup);
+                activity.startActivityForResult(startPopup, 1);
                 return true;
             }
         });
     }
-
-/*
-    public void createOnDragListener(View v){
-        button.setOnDragListener(new View.OnDragListener(){
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                switch (event.getAction()) {
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        return true;
-                    case DragEvent.ACTION_DROP:
-                        int posX = (int) event.getX();
-                        int posY = (int) event.getY();
-                        setPosition(posX,posY);
-                        return true;
-                    case DragEvent.ACTION_DRAG_ENDED:
-                        return true;
-                }
-                return true;
-            }
-        });
-    }
-    */
 
     public void createOnTouchListener(final RelativeLayout layout){
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -163,6 +151,16 @@ public class MyButton extends DiscreteElement {
                         break;
                 }
                 return false;
+            }
+        });
+    }
+
+    public void createOnClickListener(Activity activity, Runtime runtime){
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //executeCommand();
+                System.out.println("click-------------------------------");
             }
         });
     }
@@ -190,11 +188,12 @@ public class MyButton extends DiscreteElement {
         dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_commandTrue"));
         wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_commandTrue"));
         bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_commandTrue"));
-        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
+        setCommandOnDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
 
         dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_commandFalse"));
         wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_commandFalse"));
         bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_commandFalse"));
-        setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
+        setCommandOffDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
     }
+
 }

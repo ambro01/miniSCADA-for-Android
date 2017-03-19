@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class PopupStatusCommand extends Popup{
+import com.example.application.miniSCADA.PLC.DataBlock;
+import com.example.application.miniSCADA.PLC.DataBlockBool;
 
+public class PopupStatusCommand extends Popup{
 
     public void onPopupShow(){
         setContentView(R.layout.popup_discrete_status_command);
@@ -28,7 +30,37 @@ public class PopupStatusCommand extends Popup{
         adapter = new ArrayAdapter<>(this,  android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
+
+        DataBlockBool statusDataBlock = (DataBlockBool) getIntent().getSerializableExtra("statusDataBlock");
+        DataBlockBool commandOnDataBlock = (DataBlockBool) getIntent().getSerializableExtra("commandOnDataBlock");
+        DataBlockBool commandOffDataBlock = (DataBlockBool) getIntent().getSerializableExtra("commandOffDataBlock");
+
+        EditText dbNumber;
+        EditText wordNumber;
+        Spinner bitNumber;
+
+        dbNumber = (EditText) findViewById(R.id.dbNumber_both_status);
+        wordNumber = (EditText) findViewById(R.id.wordNumber_both_status);
+        bitNumber = (Spinner)findViewById(R.id.bitIndex_both_status);
+        dbNumber.setText(String.valueOf(statusDataBlock.getDbNumber()));
+        wordNumber.setText(String.valueOf(statusDataBlock.getPosition()));
+        bitNumber.setSelection(statusDataBlock.getBitPosition());
+
+        dbNumber = (EditText) findViewById(R.id.dbNumber_both_commandTrue);
+        wordNumber = (EditText) findViewById(R.id.wordNumber_both_commandTrue);
+        bitNumber = (Spinner)findViewById(R.id.bitIndex_both_commandTrue);
+        dbNumber.setText(String.valueOf(commandOnDataBlock.getDbNumber()));
+        wordNumber.setText(String.valueOf(commandOnDataBlock.getPosition()));
+        bitNumber.setSelection(commandOnDataBlock.getBitPosition());
+
+        dbNumber = (EditText) findViewById(R.id.dbNumber_both_commandFalse);
+        wordNumber = (EditText) findViewById(R.id.wordNumber_both_commandFalse);
+        bitNumber = (Spinner)findViewById(R.id.bitIndex_both_commandFalse);
+        dbNumber.setText(String.valueOf(commandOffDataBlock.getDbNumber()));
+        wordNumber.setText(String.valueOf(commandOffDataBlock.getPosition()));
+        bitNumber.setSelection(commandOffDataBlock.getBitPosition());
     }
+
 
     public void onClosePopup(View view){
         finish();
@@ -36,8 +68,8 @@ public class PopupStatusCommand extends Popup{
 
     public void onConfirmPopup(View view){
         Intent returnIntent = new Intent();
-        EditText dbNumber_status = (EditText) findViewById(R.id.setpointValue);
-        EditText wordNumber_status = (EditText) findViewById(R.id.wordNumber_analog);
+        EditText dbNumber_status = (EditText) findViewById(R.id.dbNumber_both_status);
+        EditText wordNumber_status = (EditText) findViewById(R.id.wordNumber_both_status);
         returnIntent.putExtra("dbNumber_status",dbNumber_status.getText().toString());
         returnIntent.putExtra("wordNumber_status",wordNumber_status.getText().toString());
 

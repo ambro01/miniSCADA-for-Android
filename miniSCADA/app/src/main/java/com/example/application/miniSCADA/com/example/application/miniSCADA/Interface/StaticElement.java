@@ -84,13 +84,11 @@ public class StaticElement extends Element{
     }
 
     public void createOnLongClickListener(Activity activity, Develop develop){
-        image.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //nothing to do
-                return true;
-            }
-        });
+        //nothing to do
+    }
+
+    public void createOnClickListener(Activity activity, Runtime runtime){
+        //nothing to do
     }
 
     public void activeOnLongClickListener(Activity activity, Develop develop){

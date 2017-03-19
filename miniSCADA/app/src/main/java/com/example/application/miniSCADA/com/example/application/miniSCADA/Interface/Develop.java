@@ -2,11 +2,12 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 
 import android.app.Activity;
-import android.view.GestureDetector;
+
 import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
+import com.example.application.miniSCADA.PLC.DataBlockReal;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -235,7 +236,10 @@ public class Develop {
     }
 
     public void defaultAnalogInputCreate(Activity activity, RelativeLayout layout){
-        AnalogInput analogInput = new AnalogInput(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+        byte[] data = new byte[4];
+        DataBlockReal dataBlock = new DataBlockReal(0,0,data);
+
+        AnalogInput analogInput = new AnalogInput(activity,dataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
                 Globals.dptoPx(Globals.analogHeight), Globals.dptoPx(Globals.analogWidth));
 
         analogInput.updatePositionToElement();
@@ -246,7 +250,10 @@ public class Develop {
     }
 
     public void defaultAnalogDisplayCreate(Activity activity, RelativeLayout layout){
-        AnalogDisplay analogDisplay = new AnalogDisplay(activity, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+        byte[] data = new byte[4];
+        DataBlockReal dataBlock = new DataBlockReal(0,0,data);
+
+        AnalogDisplay analogDisplay = new AnalogDisplay(activity,dataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
                 Globals.dptoPx(Globals.analogHeight), Globals.dptoPx(Globals.analogWidth));
 
         analogDisplay.updatePositionToElement();

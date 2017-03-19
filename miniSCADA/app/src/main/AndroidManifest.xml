@@ -31,26 +31,27 @@
         <activity
             android:name=".Activities.ModifyActivity"
             android:label="@string/title_activity_modify"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PopupStatusCommand"
-            android:theme="@style/myDialog">
-        </activity>
+            android:theme="@style/myDialog" />
         <activity
             android:name=".PopupStatus"
-            android:theme="@style/myDialog">
-        </activity>
+            android:theme="@style/myDialog" />
         <activity
             android:name=".PopupLabel"
-            android:theme="@style/myDialog">
-        </activity>
+            android:theme="@style/myDialog" />
         <activity
             android:name=".PopupAnalogSetpoint"
-            android:theme="@style/myDialog">
-        </activity>
+            android:theme="@style/myDialog" />
         <activity
             android:name=".PopupAnalog"
-            android:theme="@style/myDialog">
+            android:theme="@style/myDialog" />
+        <activity android:name=".Activities.PreRuntimeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activities.RuntimeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
     </application>
 

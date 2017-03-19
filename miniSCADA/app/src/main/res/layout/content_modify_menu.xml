@@ -16,29 +16,28 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:id="@+id/listViewOfProjects"
-        android:listSelector="@drawable/selector"/>
+        android:listSelector="@drawable/selector"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
         android:text="Open Project"
         android:id="@+id/button8"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="83dp"
         android:onClick="onOpenProjectToModify"
-        android:layout_alignTop="@+id/listViewOfProjects"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginStart="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/listViewOfProjects" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
         android:text="Delete Project"
         android:id="@+id/button9"
-        android:layout_marginTop="29dp"
         android:onClick="onDeleteProject"
         android:layout_below="@+id/button8"
-        android:layout_alignLeft="@+id/button8"
         android:layout_alignStart="@+id/button8"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp" />
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

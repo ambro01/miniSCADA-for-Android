@@ -16,9 +16,10 @@ public class AnalogDisplay extends Element{
     private transient TextView displayValue;
     private DataBlockReal outputDataBlock;
 
-    public AnalogDisplay(Activity activity, int x, int y, int height, int width){
+    public AnalogDisplay(Activity activity, DataBlockReal dataBlockReal, int x, int y, int height, int width){
         super(x,y,height,width);
         displayValue = new TextView(activity);
+        outputDataBlock = dataBlockReal;
         defaultSettings();
     }
 
@@ -105,10 +106,16 @@ public class AnalogDisplay extends Element{
             public boolean onLongClick(View v) {
                 develop.setActiveElement(AnalogDisplay.this);
                 Intent startPopup = new Intent(activity, PopupAnalog.class);
+                startPopup.putExtra("dataBlock",getDataBlock());
+                activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
             }
         });
+    }
+
+    public void createOnClickListener(Activity activity, Runtime runtime){
+        // nothing to do
     }
 
     public void activeOnLongClickListener(Activity activity,Develop develop){
@@ -125,8 +132,8 @@ public class AnalogDisplay extends Element{
         int dbNumber;
         int wordNumber;
 
-        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_status"));
-        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_status"));
+        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_analog"));
+        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_analog"));
         setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[1]));
     }
 }

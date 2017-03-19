@@ -2,15 +2,14 @@ package com.example.application.miniSCADA.Activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.application.miniSCADA.Activities.DevelopActivity;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.R;
 
@@ -19,14 +18,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ModifyActivity extends AppCompatActivity {
+public class PreRuntimeActivity extends AppCompatActivity {
     ArrayList<String> projects;
-    private int itemPosition;
+    int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify);
+        setContentView(R.layout.activity_pre_runtime);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Globals.displayMetrics = getResources().getDisplayMetrics();
 
@@ -62,20 +61,7 @@ public class ModifyActivity extends AppCompatActivity {
         listView.setAdapter(myAdapter);
     }
 
-    public void onDeleteProject(View view){
-        ListView projectsListView = (ListView) findViewById(R.id.listViewOfProjects);
-        if(itemPosition >= 0){
-            String name = projectsListView.getItemAtPosition(itemPosition).toString();
-            File file = new File(getFilesDir() + "/" + name);
-            if(file.exists()) {
-                file.delete();
-                refreshListView(projectsListView);
-            }
-        }
-        itemPosition = -1;
-    }
-
-    public void onOpenProjectToModify(View view){
+    public void onRunVisualisation(View view){
         ListView projectsListView = (ListView) findViewById(R.id.listViewOfProjects);
         if(itemPosition >= 0){
             String fullName = projectsListView.getItemAtPosition(itemPosition).toString();
@@ -83,10 +69,10 @@ public class ModifyActivity extends AppCompatActivity {
             Matcher matcher = pattern.matcher(fullName);
             if(matcher.find()){
                 String name = matcher.group(2);
-                Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
-                startDevelopActivity.putExtra("projectName", name);
-                startDevelopActivity.putExtra("deserialize", "true");
-                startActivity(startDevelopActivity);
+                Intent startRuntimeActivity = new Intent(getApplicationContext(), RuntimeActivity.class);
+                startRuntimeActivity.putExtra("projectName", name);
+                startRuntimeActivity.putExtra("deserialize", "true");
+                startActivity(startRuntimeActivity);
             }
         }
     }
