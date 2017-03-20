@@ -3,17 +3,23 @@ package com.example.application.miniSCADA.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.application.miniSCADA.Globals;
+import com.example.application.miniSCADA.PLC.PlcReader;
 import com.example.application.miniSCADA.Popup;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.AnalogInput;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.MyButton;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Runtime;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RuntimeActivity extends AppCompatActivity {
 
@@ -41,11 +47,14 @@ public class RuntimeActivity extends AppCompatActivity {
             deserialize = extras.getString("deserialize");
         }
 
-        if(deserialize.equals("true") && !projectName.isEmpty()){
+        if(deserialize.equals("true") && !projectName.isEmpty())
             runtime.deserializeVisualisation(this, layout, projectName);
-        } else {
+        else
             finish();
-        }
+
+        if(runtime.getVisualisation() != null)
+            periodicallyReadPlc();
+
     }
 
     @Override
@@ -61,6 +70,26 @@ public class RuntimeActivity extends AppCompatActivity {
                 //Write your code if there's no result
             }
         }
+    }
+
+    //------------------METHODS WITH PLC -------------------------
+
+    public void periodicallyReadPlc(){
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        new PlcReader(getApplicationContext(), runtime.getVisualisation().getElements()).execute("");
+                    }
+                });
+            }
+        };
+        //wykonywanie taska co 1000ms
+        timer.schedule(task,0,1000);
     }
 
 }

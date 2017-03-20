@@ -16,7 +16,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:id="@+id/listViewOfProjects"
-        android:listSelector="@drawable/selector"
+        android:listSelector="#7a736f"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true" />
 

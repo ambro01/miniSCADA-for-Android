@@ -4,11 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.example.application.miniSCADA.PLC.DataBlock;
 import com.example.application.miniSCADA.PLC.DataBlockReal;
+import com.example.application.miniSCADA.PLC.PlcWriter;
 import com.example.application.miniSCADA.PopupAnalogSetpoint;
 import com.example.application.miniSCADA.R;
 
+import java.nio.ByteBuffer;
+
+import Moka7.S7;
+
 public class AnalogInput extends AnalogDisplay{
+    DataBlockReal inputDataBlock;
     float inputValue;
 
     public AnalogInput(Activity activity, DataBlockReal dataBlockReal, int x, int y, int height, int width){
@@ -34,7 +41,19 @@ public class AnalogInput extends AnalogDisplay{
     public void getSetpointFromPopup(Intent intent){
         float value = Float.parseFloat(intent.getStringExtra("setpointValue"));
         setInputValue(value);
-        getDisplayValue().setText(String.valueOf(inputValue));
+
+        setDataBlockFromFloat();
+        sentDataBlockToPlc();
+    }
+
+    public void setDataBlockFromFloat(){
+        byte [] data = new byte[4];
+        S7.SetFloatAt(data,0,inputValue);
+        inputDataBlock = new DataBlockReal(getDataBlock().getDbNumber(),getDataBlock().getPosition(), data);
+    }
+
+    public void sentDataBlockToPlc(){
+        new PlcWriter(inputDataBlock).execute("");
     }
 
     public void createOnClickListener(final Activity activity, final Runtime runtime){
@@ -43,7 +62,7 @@ public class AnalogInput extends AnalogDisplay{
             public void onClick(View view) {
                 runtime.setActiveElement(AnalogInput.this);
                 Intent startPopup = new Intent(activity, PopupAnalogSetpoint.class);
-                startPopup.putExtra("inputValue", String.valueOf(getInputValue()));
+                startPopup.putExtra("inputValue", String.valueOf(getOutputValue()));
 
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup, 1);

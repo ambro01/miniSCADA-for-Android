@@ -22,7 +22,9 @@ public class PlcWriter extends AsyncTask<String, Void, String> {
             Globals.s7client.SetConnectionType(S7.S7_BASIC);
             int result = Globals.s7client.ConnectTo("10.10.101.47",0,1);
             if(result == 0) {
+                System.out.println("------------------");
                 result = Globals.s7client.WriteArea(S7.S7AreaDB, data.getDbNumber(), data.getPosition(), data.getSize(), data.getData());
+                System.out.println(result);
             }else{
                 ret = "Err: " + S7Client.ErrorText(result);
             }

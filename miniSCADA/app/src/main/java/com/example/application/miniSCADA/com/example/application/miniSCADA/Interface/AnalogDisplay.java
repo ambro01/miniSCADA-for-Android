@@ -3,6 +3,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -12,9 +13,12 @@ import com.example.application.miniSCADA.PLC.DataBlockReal;
 import com.example.application.miniSCADA.PopupAnalog;
 import com.example.application.miniSCADA.R;
 
+import Moka7.S7;
+
 public class AnalogDisplay extends Element{
     private transient TextView displayValue;
     private DataBlockReal outputDataBlock;
+    float outputValue;
 
     public AnalogDisplay(Activity activity, DataBlockReal dataBlockReal, int x, int y, int height, int width){
         super(x,y,height,width);
@@ -23,11 +27,20 @@ public class AnalogDisplay extends Element{
         defaultSettings();
     }
 
+    public void setOutputValue(float value){
+        outputValue = value;
+    }
+
     public void defaultSettings(){
         displayValue.setBackgroundResource(R.drawable.display_analog);
         displayValue.setTextSize(16);
+        displayValue.setTextColor(Color.BLACK);
         displayValue.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         displayValue.setText("Display");
+    }
+
+    public float getOutputValue(){
+        return outputValue;
     }
 
     public TextView getDisplayValue(){
@@ -38,9 +51,6 @@ public class AnalogDisplay extends Element{
         return outputDataBlock;
     }
 
-    public DataBlockReal getOutputDataBlock(){
-        return outputDataBlock;
-    }
 
     public void setOutputDataBlock(DataBlockReal dataBlock){
         outputDataBlock = dataBlock;
@@ -62,6 +72,14 @@ public class AnalogDisplay extends Element{
 
     public void updateSizeFromElement(){
         this.setSize(displayValue.getHeight(), displayValue.getWidth());
+    }
+
+    public void updateDisplayValue(){
+        displayValue.setText(String.valueOf(outputValue));
+    }
+
+    public void updateValueFromPlc(){
+        this.outputValue = S7.GetFloatAt(getDataBlock().getData(),0);
     }
 
     public void drawObject(RelativeLayout layout){
@@ -134,6 +152,6 @@ public class AnalogDisplay extends Element{
 
         dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_analog"));
         wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_analog"));
-        setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[1]));
+        setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[4]));
     }
 }

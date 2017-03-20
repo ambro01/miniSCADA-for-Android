@@ -108,7 +108,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 element.activeOnLongClickListener(this, develop);
             }
         }
-    };
+    }
 
     public void onBackgroundColorChange(View view){
         onColorSelect(view);
@@ -183,8 +183,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
         List<String> discreteControls = new ArrayList<String>();
         discreteControls.add("Button");
-        discreteControls.add("Valve Vertical");
-        discreteControls.add("Valve Horizontal");
         discreteControls.add("Lamp");
 
         List<String> analogControls = new ArrayList<String>();
@@ -193,6 +191,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         analogControls.add("Label");
 
         List<String> staticElements = new ArrayList<String>();
+        staticElements.add("Valve Vertical");
+        staticElements.add("Valve Horizontal");
         staticElements.add("Pipe Vertical");
         staticElements.add("Pipe Horizontal");
         staticElements.add("Pipe Left-Top");
@@ -223,25 +223,5 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     @Override
     public void onDialogDismissed(int dialogId) {
-    }
-
-    //------------------METHODS WITH PLC -------------------------
-
-    public void periodicallyReadPlc(){
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        new PlcReader(getApplicationContext(), develop.getVisualisation().getElements()).execute("");
-                    }
-                });
-            }
-        };
-        //wykonywanie taska co 1000ms
-        timer.schedule(task,0,1000);
     }
 }

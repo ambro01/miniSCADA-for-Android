@@ -3,6 +3,7 @@ package com.example.application.miniSCADA.com.example.application.miniSCADA.Inte
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ public class Label extends Element {
         displayValue.setTextSize(16);
         displayValue.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         displayValue.setText("#####");
+        displayValue.setTextColor(Color.BLACK);
     }
 
     public TextView getDisplayValue(){
