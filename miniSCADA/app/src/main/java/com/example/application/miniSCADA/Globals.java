@@ -17,8 +17,13 @@ public class Globals {
    public static final int buttonWidth = 100;
    public static final int circleDiameter = 50;
    public static final int elementSide = 100;
+<<<<<<< HEAD
    public static final int analogHeight = 25;
    public static final int analogWidth = 80;
+=======
+   public static final int popupHeight = 200;
+   public static final int popupWidth = 400;
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 
    public static void loadImage (Context context, ImageView image, String name){
       try {

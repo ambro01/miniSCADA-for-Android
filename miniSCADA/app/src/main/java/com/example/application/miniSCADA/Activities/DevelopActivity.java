@@ -7,10 +7,28 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
+=======
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+<<<<<<< HEAD
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+=======
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+
+import com.example.application.miniSCADA.PLC.DataBlockBool;
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
@@ -28,11 +46,21 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     private Develop develop;
     private RelativeLayout layout;
+<<<<<<< HEAD
+=======
+    private GestureDetector gestureDetector;
+    private LayoutInflater layoutInflater;
+
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
 
+<<<<<<< HEAD
+=======
+    private PopupWindow popUpWindow;
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +91,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         prepareListView();
     }
 
+<<<<<<< HEAD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -74,6 +103,20 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 //Write your code if there's no result
             }
         }
+=======
+    //------------------BUTTON ACTIONS------------------------
+
+    public void onPopupShow(View view){
+       // startActivity(new Intent(this, Popup.class));
+        layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_window,null);
+        popUpWindow = new PopupWindow(container,Globals.dptoPx(Globals.popupWidth), Globals.dptoPx(Globals.popupHeight), false);
+        popUpWindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
+    }
+
+    public void onClosePopup(){
+        popUpWindow.dismiss();
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
     }
 
     //------------------BUTTON ACTIONS------------------------

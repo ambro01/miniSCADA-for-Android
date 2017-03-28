@@ -4,6 +4,7 @@
     <string name="title_activity_develop">DevelopActivity</string>
     <string name="title_activity_pre_develop">pre_develop</string>
     <string name="title_activity_modify">Modify</string>
+<<<<<<< HEAD
     <string name="extraDbNumberStatus">dbNumber_status</string>
     <string name="extraDbNumberCommandOn">dbNumber_commandOn</string>
     <string name="extraDbNumberCommandOff">dbNumber_commandOff</string>
@@ -36,5 +37,7 @@
         <item>"6"</item>
         <item>"7"</item>
     </string-array>
+=======
+>>>>>>> 78fea71660cc1a62ca2ca6efd4e809b224f1afc2
 
 </resources>
