@@ -28,9 +28,12 @@ public class Globals {
    public static final int buttonWidth = 100;
    public static final int circleDiameter = 50;
    public static final int elementSide = 100;
+<<<<<<< HEAD
    public static final int analogHeight = 25;
    public static final int analogWidth = 80;
 
+=======
+>>>>>>> parent of 78fea71... Temporary popup window
 
    public static void loadImage (Context context, ImageView image, String name){
       try {

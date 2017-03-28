@@ -37,12 +37,19 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     private Develop develop;
     private RelativeLayout layout;
+<<<<<<< HEAD
+=======
+    private GestureDetector gestureDetector;
+>>>>>>> parent of 78fea71... Temporary popup window
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 78fea71... Temporary popup window
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
@@ -72,6 +79,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         prepareListView();
     }
 
+<<<<<<< HEAD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,6 +93,13 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         }
     }
 
+=======
+    //------------------BUTTON ACTIONS------------------------
+
+    public void onPopupShow(View view){
+        startActivity(new Intent(this, Popup.class));
+    }
+>>>>>>> parent of 78fea71... Temporary popup window
 
     //------------------BUTTON ACTIONS------------------------
 

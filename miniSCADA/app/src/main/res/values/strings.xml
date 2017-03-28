@@ -4,6 +4,7 @@
     <string name="title_activity_develop">DevelopActivity</string>
     <string name="title_activity_pre_develop">pre_develop</string>
     <string name="title_activity_modify">Modify</string>
+<<<<<<< HEAD
     <string-array name="bitIndex">
         <item>"0"</item>
         <item>"1"</item>
@@ -14,4 +15,6 @@
         <item>"6"</item>
         <item>"7"</item>
     </string-array>
+=======
+>>>>>>> parent of 78fea71... Temporary popup window
 </resources>
