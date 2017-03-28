@@ -6,18 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RelativeLayout;
-
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.PlcReader;
-import com.example.application.miniSCADA.Popup;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.AnalogInput;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.MyButton;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Runtime;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,25 +30,20 @@ public class RuntimeActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_runtime);
         Globals.displayMetrics = getResources().getDisplayMetrics();
-
         layout = (RelativeLayout) findViewById(R.id.runtimeLayout);
         String deserialize = "";
-
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            projectName = extras.getString("projectName");
-            deserialize = extras.getString("deserialize");
+            projectName = extras.getString(getString(R.string.extraProjectName));
+            deserialize = extras.getString(getString(R.string.extraDeserialize));
         }
-
         if(deserialize.equals("true") && !projectName.isEmpty())
             runtime.deserializeVisualisation(this, layout, projectName);
         else
             finish();
-
         if(runtime.getVisualisation() != null)
             periodicallyReadPlc();
-
     }
 
     @Override
@@ -63,7 +52,7 @@ public class RuntimeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 if(runtime.getActiveElement() instanceof AnalogInput){
-                    ((AnalogInput) runtime.getActiveElement()).getSetpointFromPopup(data);
+                    ((AnalogInput) runtime.getActiveElement()).getSetpointFromPopup(this, data);
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {

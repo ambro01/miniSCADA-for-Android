@@ -9,11 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import com.example.application.miniSCADA.Activities.DevelopActivity;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.R;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -84,8 +81,8 @@ public class ModifyActivity extends AppCompatActivity {
             if(matcher.find()){
                 String name = matcher.group(2);
                 Intent startDevelopActivity = new Intent(getApplicationContext(), DevelopActivity.class);
-                startDevelopActivity.putExtra("projectName", name);
-                startDevelopActivity.putExtra("deserialize", "true");
+                startDevelopActivity.putExtra(getString(R.string.extraProjectName), name);
+                startDevelopActivity.putExtra(getString(R.string.extraDeserialize), "true");
                 startActivity(startDevelopActivity);
             }
         }

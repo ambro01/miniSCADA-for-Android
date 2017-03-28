@@ -14,6 +14,7 @@ import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.PopupStatus;
 import com.example.application.miniSCADA.PopupStatusCommand;
+import com.example.application.miniSCADA.R;
 
 public class MyLamp extends DiscreteElement{
     private transient ImageView image;
@@ -92,7 +93,7 @@ public class MyLamp extends DiscreteElement{
             public boolean onLongClick(View v) {
                 develop.setActiveElement(MyLamp.this);
                 Intent startPopup = new Intent(activity, PopupStatus.class);
-                startPopup.putExtra("statusDataBlock",getStatusDataBlock());
+                startPopup.putExtra(activity.getResources().getString(R.string.extraStatusDataBlock),getStatusDataBlock());
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
@@ -114,14 +115,14 @@ public class MyLamp extends DiscreteElement{
         image.setOnLongClickListener(null);
     }
 
-    public void createDataFromPopup(Intent intent){
+    public void createDataFromPopup(Activity activity, Intent intent){
         int dbNumber;
         int wordNumber;
         int bitNumber;
 
-        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_status"));
-        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_status"));
-        bitNumber = Integer.parseInt(intent.getStringExtra("bitNumber_status"));
+        dbNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraDbNumberStatus)));
+        wordNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraWordNumberStatus)));
+        bitNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraBitNumberStatus)));
         setStatusDataBlock(new DataBlockBool(dbNumber,wordNumber, new byte[1], bitNumber));
 
     }

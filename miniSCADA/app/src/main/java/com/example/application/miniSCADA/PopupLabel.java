@@ -11,7 +11,7 @@ public class PopupLabel extends Popup{
     public void onPopupShow(){
         setContentView(R.layout.popup_label);
         Bundle extras = getIntent().getExtras();
-        String text = extras.getString("text");
+        String text = extras.getString(getString(R.string.extraLabelToPopupText));
         EditText editText = (EditText) findViewById(R.id.textValue);
         editText.setText(text);
     }
@@ -23,7 +23,7 @@ public class PopupLabel extends Popup{
     public void onConfirmPopup(View view){
         Intent returnIntent = new Intent();
         EditText text = (EditText) findViewById(R.id.textValue);
-        returnIntent.putExtra("labelText",text.getText().toString());
+        returnIntent.putExtra(getString(R.string.extraLabelFromPopupText),text.getText().toString());
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }

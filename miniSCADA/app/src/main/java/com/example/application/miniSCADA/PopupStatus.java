@@ -1,13 +1,11 @@
 package com.example.application.miniSCADA;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 
 public class PopupStatus extends Popup{
@@ -20,7 +18,7 @@ public class PopupStatus extends Popup{
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
 
-        DataBlockBool statusDataBlock = (DataBlockBool) getIntent().getSerializableExtra("statusDataBlock");
+        DataBlockBool statusDataBlock = (DataBlockBool) getIntent().getSerializableExtra(getString(R.string.extraStatusDataBlock));
 
         EditText dbNumber;
         EditText wordNumber;
@@ -42,11 +40,11 @@ public class PopupStatus extends Popup{
         Intent returnIntent = new Intent();
         EditText dbNumber_status = (EditText) findViewById(R.id.dbNumber_only_status);
         EditText wordNumber_status = (EditText) findViewById(R.id.wordNumber_only_status);
-        returnIntent.putExtra("dbNumber_status",dbNumber_status.getText().toString());
-        returnIntent.putExtra("wordNumber_status",wordNumber_status.getText().toString());
+        returnIntent.putExtra(getString(R.string.extraDbNumberStatus),dbNumber_status.getText().toString());
+        returnIntent.putExtra(getString(R.string.extraWordNumberStatus),wordNumber_status.getText().toString());
 
         Spinner spinner_status = (Spinner)findViewById(R.id.bitIndex_only_status);
-        returnIntent.putExtra("bitNumber_status",spinner_status.getSelectedItem().toString());
+        returnIntent.putExtra(getString(R.string.extraBitNumberStatus),spinner_status.getSelectedItem().toString());
 
         setResult(Activity.RESULT_OK,returnIntent);
         finish();

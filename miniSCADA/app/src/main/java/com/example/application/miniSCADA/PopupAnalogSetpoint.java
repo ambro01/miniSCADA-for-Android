@@ -10,7 +10,7 @@ public class PopupAnalogSetpoint extends Popup {
     public void onPopupShow(){
         setContentView(R.layout.popup_analog_setpoint);
         Bundle extras = getIntent().getExtras();
-        String inputValue = extras.getString("inputValue");
+        String inputValue = extras.getString(getString(R.string.extraValueToPopupText));
         EditText editText = (EditText) findViewById(R.id.setpointValue);
         editText.setText(inputValue);
     }
@@ -22,7 +22,7 @@ public class PopupAnalogSetpoint extends Popup {
     public void onConfirmPopup(View view){
         Intent returnIntent = new Intent();
         EditText value = (EditText) findViewById(R.id.setpointValue);
-        returnIntent.putExtra("setpointValue",value.getText().toString());
+        returnIntent.putExtra(getString(R.string.extraValueFromPopupText),value.getText().toString());
 
         setResult(Activity.RESULT_OK,returnIntent);
         finish();

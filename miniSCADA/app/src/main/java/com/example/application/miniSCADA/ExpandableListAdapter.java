@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.R;
-
 public class ExpandableListAdapter extends BaseExpandableListAdapter{
     private Context _context;
-    private List<String> _listDataHeader; // header titles
+    private List<String> _listDataHeader;
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
 
@@ -40,14 +36,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item, null);
         }
-
         TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
         ImageView myImage = (ImageView) convertView.findViewById(R.id.imageView);
 
@@ -55,7 +49,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         Globals.loadImage(_context,myImage,childText + "0.png");
         myImage.setMaxHeight(30);
         myImage.setMaxWidth(15);
-
         return convertView;
     }
 

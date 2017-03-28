@@ -5,14 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.PLC.DataBlockReal;
-import com.example.application.miniSCADA.PLC.PlcWriter;
 import com.example.application.miniSCADA.R;
-
-import Moka7.S7;
-
 
 public class MainActivity extends AppCompatActivity {
 

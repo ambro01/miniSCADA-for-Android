@@ -31,7 +31,6 @@
         <activity
             android:name=".Activities.ModifyActivity"
             android:label="@string/title_activity_modify"
-<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PopupStatusCommand"
@@ -51,14 +50,7 @@
         <activity android:name=".Activities.PreRuntimeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activities.RuntimeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-=======
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Popup"
-            android:theme="@style/AppTheme.CustomTheme">
->>>>>>> parent of 78fea71... Temporary popup window
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

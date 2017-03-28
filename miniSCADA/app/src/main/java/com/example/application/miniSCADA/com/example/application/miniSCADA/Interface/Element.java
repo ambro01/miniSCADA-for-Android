@@ -84,5 +84,5 @@ public abstract class Element implements Serializable{
 
     public abstract void activeOnTouchListener(RelativeLayout layout);
 
-    public abstract void createDataFromPopup(Intent intent);
+    public abstract void createDataFromPopup(Activity activity, Intent intent);
 }

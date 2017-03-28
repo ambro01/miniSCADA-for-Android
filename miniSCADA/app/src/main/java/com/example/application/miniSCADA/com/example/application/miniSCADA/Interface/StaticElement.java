@@ -101,7 +101,7 @@ public class StaticElement extends Element{
         image.setOnLongClickListener(null);
     }
 
-    public void createDataFromPopup(Intent intent){
+    public void createDataFromPopup(Activity activity, Intent intent){
         //nothing to do
     }
 

@@ -9,10 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.R;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -70,8 +68,8 @@ public class PreRuntimeActivity extends AppCompatActivity {
             if(matcher.find()){
                 String name = matcher.group(2);
                 Intent startRuntimeActivity = new Intent(getApplicationContext(), RuntimeActivity.class);
-                startRuntimeActivity.putExtra("projectName", name);
-                startRuntimeActivity.putExtra("deserialize", "true");
+                startRuntimeActivity.putExtra(getString(R.string.extraProjectName), name);
+                startRuntimeActivity.putExtra(getString(R.string.extraDeserialize), "true");
                 startActivity(startRuntimeActivity);
             }
         }

@@ -38,8 +38,8 @@ public class AnalogInput extends AnalogDisplay{
         getDisplayValue().setBackgroundResource(R.drawable.input_analog);
     }
 
-    public void getSetpointFromPopup(Intent intent){
-        float value = Float.parseFloat(intent.getStringExtra("setpointValue"));
+    public void getSetpointFromPopup(Activity activity, Intent intent){
+        float value = Float.parseFloat(intent.getStringExtra(activity.getResources().getString(R.string.extraValueFromPopupText)));
         setInputValue(value);
 
         setDataBlockFromFloat();
@@ -62,7 +62,7 @@ public class AnalogInput extends AnalogDisplay{
             public void onClick(View view) {
                 runtime.setActiveElement(AnalogInput.this);
                 Intent startPopup = new Intent(activity, PopupAnalogSetpoint.class);
-                startPopup.putExtra("inputValue", String.valueOf(getOutputValue()));
+                startPopup.putExtra(activity.getResources().getString(R.string.extraValueToPopupText), String.valueOf(getOutputValue()));
 
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup, 1);

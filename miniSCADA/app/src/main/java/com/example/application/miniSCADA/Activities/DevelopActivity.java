@@ -5,24 +5,17 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.PLC.PlcReader;
-import com.example.application.miniSCADA.Popup;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
 import com.example.application.miniSCADA.ExpandableListAdapter;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.MyButton;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Visualisation;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
@@ -30,26 +23,17 @@ import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DevelopActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
     private Develop develop;
     private RelativeLayout layout;
-<<<<<<< HEAD
-=======
-    private GestureDetector gestureDetector;
->>>>>>> parent of 78fea71... Temporary popup window
 
     private ExpandableListView itemsListView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 78fea71... Temporary popup window
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String projectName = "";
@@ -65,8 +49,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            projectName = extras.getString("projectName");
-            deserialize = extras.getString("deserialize");
+            projectName = extras.getString(getString(R.string.extraProjectName));
+            deserialize = extras.getString(getString(R.string.extraDeserialize));
         }
 
         if(deserialize.equals("false")  && !projectName.isEmpty()){
@@ -79,27 +63,18 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         prepareListView();
     }
 
-<<<<<<< HEAD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                develop.getActiveElement().createDataFromPopup(data);
+                develop.getActiveElement().createDataFromPopup(this, data);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
     }
-
-=======
-    //------------------BUTTON ACTIONS------------------------
-
-    public void onPopupShow(View view){
-        startActivity(new Intent(this, Popup.class));
-    }
->>>>>>> parent of 78fea71... Temporary popup window
 
     //------------------BUTTON ACTIONS------------------------
 
@@ -133,9 +108,11 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     public void onItemsClick(View view){
         itemsListView.setVisibility(View.VISIBLE);
+        itemsListView.bringToFront();
     }
 
     public void onEmptyImageClick(View view){
+        itemsListView.setVisibility(View.INVISIBLE);
         itemsListView.setVisibility(View.INVISIBLE);
     }
 

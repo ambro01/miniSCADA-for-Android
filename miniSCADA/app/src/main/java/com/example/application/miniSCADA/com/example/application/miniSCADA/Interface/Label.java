@@ -99,7 +99,7 @@ public class Label extends Element {
             public boolean onLongClick(View v) {
                 develop.setActiveElement(Label.this);
                 Intent startPopup = new Intent(activity, PopupLabel.class);
-                startPopup.putExtra("text", text);
+                startPopup.putExtra(activity.getResources().getString(R.string.extraLabelToPopupText), text);
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
@@ -121,9 +121,9 @@ public class Label extends Element {
         displayValue.setOnLongClickListener(null);
     }
 
-    public void createDataFromPopup(Intent intent){
+    public void createDataFromPopup(Activity activity, Intent intent){
         String textTemp;
-        textTemp = intent.getStringExtra("labelText");
+        textTemp = intent.getStringExtra(activity.getResources().getString(R.string.extraLabelFromPopupText));
 
         text = textTemp;
         displayValue.setText(text);

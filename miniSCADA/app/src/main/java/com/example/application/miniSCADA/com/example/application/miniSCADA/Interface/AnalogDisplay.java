@@ -1,6 +1,5 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.application.miniSCADA.PLC.DataBlockReal;
 import com.example.application.miniSCADA.PopupAnalog;
 import com.example.application.miniSCADA.R;
@@ -124,7 +122,7 @@ public class AnalogDisplay extends Element{
             public boolean onLongClick(View v) {
                 develop.setActiveElement(AnalogDisplay.this);
                 Intent startPopup = new Intent(activity, PopupAnalog.class);
-                startPopup.putExtra("dataBlock",getDataBlock());
+                startPopup.putExtra(activity.getResources().getString(R.string.extraRealDataBlock),getDataBlock());
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
@@ -146,12 +144,12 @@ public class AnalogDisplay extends Element{
         displayValue.setOnLongClickListener(null);
     }
 
-    public void createDataFromPopup(Intent intent){
+    public void createDataFromPopup(Activity activity, Intent intent){
         int dbNumber;
         int wordNumber;
 
-        dbNumber = Integer.parseInt(intent.getStringExtra("dbNumber_analog"));
-        wordNumber = Integer.parseInt(intent.getStringExtra("wordNumber_analog"));
+        dbNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraDbNumberAnalog)));
+        wordNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraWordNumberAnalog)));
         setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[4]));
     }
 }

@@ -1,22 +1,11 @@
 package com.example.application.miniSCADA;
 
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.io.IOException;
 import java.io.InputStream;
-
 import Moka7.S7Client;
 
 public class Globals {
@@ -28,12 +17,8 @@ public class Globals {
    public static final int buttonWidth = 100;
    public static final int circleDiameter = 50;
    public static final int elementSide = 100;
-<<<<<<< HEAD
    public static final int analogHeight = 25;
    public static final int analogWidth = 80;
-
-=======
->>>>>>> parent of 78fea71... Temporary popup window
 
    public static void loadImage (Context context, ImageView image, String name){
       try {

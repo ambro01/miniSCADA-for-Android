@@ -1,10 +1,31 @@
 <resources>
-    <string name="app_name">PLC_Connection</string>
+    <string name="app_name">miniSCADA</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_develop">DevelopActivity</string>
     <string name="title_activity_pre_develop">pre_develop</string>
     <string name="title_activity_modify">Modify</string>
-<<<<<<< HEAD
+    <string name="extraDbNumberStatus">dbNumber_status</string>
+    <string name="extraDbNumberCommandOn">dbNumber_commandOn</string>
+    <string name="extraDbNumberCommandOff">dbNumber_commandOff</string>
+    <string name="extraWordNumberStatus">wordNumber_status</string>
+    <string name="extraWordNumberCommandOn">wordNumber_commandOn</string>
+    <string name="extraWordNumberCommandOff">wordNumber_commandOff</string>
+    <string name="extraBitNumberStatus">bitNumber_status</string>
+    <string name="extraBitNumberCommandOn">bitNumber_commandOn</string>
+    <string name="extraBitNumberCommandOff">bitNumber_commandOff</string>
+    <string name="extraStatusDataBlock">statusDataBlock</string>
+    <string name="extraCommandOnDataBlock">commandOnDataBlock</string>
+    <string name="extraCommandOffDataBlock">commandOffDataBlock</string>
+    <string name="extraLabelToPopupText">text</string>
+    <string name="extraLabelFromPopupText">labelText</string>
+    <string name="extraValueToPopupText">inputValue</string>
+    <string name="extraValueFromPopupText">setpointValue</string>
+    <string name="extraDbNumberAnalog">dbNumber_analog</string>
+    <string name="extraWordNumberAnalog">wordNumber_analog</string>
+    <string name="extraRealDataBlock">dataBlock</string>
+    <string name="extraProjectName">projectName</string>
+    <string name="extraDeserialize">deserialize</string>
+
     <string-array name="bitIndex">
         <item>"0"</item>
         <item>"1"</item>
@@ -15,6 +36,5 @@
         <item>"6"</item>
         <item>"7"</item>
     </string-array>
-=======
->>>>>>> parent of 78fea71... Temporary popup window
+
 </resources>
