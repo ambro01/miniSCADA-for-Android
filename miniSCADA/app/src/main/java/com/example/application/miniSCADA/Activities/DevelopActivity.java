@@ -135,6 +135,11 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
     public void onEmptyImageClick(View view){
         itemsListView.setVisibility(View.INVISIBLE);
         itemsListView.setVisibility(View.INVISIBLE);
+        itemsListView.collapseGroup(0);
+        itemsListView.collapseGroup(1);
+        itemsListView.collapseGroup(2);
+        itemsListView.collapseGroup(3);
+
     }
 
     public void prepareListView(){
@@ -175,7 +180,10 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                     case "Analog Controls":
                         develop.createAnalogControlFromName(DevelopActivity.this, layout, itemName);
                         break;
-                    case "Static Elements":
+                    case "Pipes and Valves":
+                        develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
+                        break;
+                    case "Other Elements":
                         develop.createStaticElementFromName(DevelopActivity.this, layout, itemName);
                         break;
                 }
@@ -192,7 +200,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
         listDataHeader.add("Discrete Controls");
         listDataHeader.add("Analog Controls");
-        listDataHeader.add("Static Elements");
+        listDataHeader.add("Pipes and Valves");
+        listDataHeader.add("Other Elements");
 
         List<String> discreteControls = new ArrayList<String>();
         discreteControls.add("Button");
@@ -203,23 +212,48 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         analogControls.add("Analog Display");
         analogControls.add("Label");
 
+        List<String> pipesAndValves = new ArrayList<String>();
+        pipesAndValves.add("Valve Vertical");
+        pipesAndValves.add("Valve Horizontal");
+        pipesAndValves.add("Pipe Vertical");
+        pipesAndValves.add("Pipe Horizontal");
+        pipesAndValves.add("Pipe Left-Top");
+        pipesAndValves.add("Pipe Left-Bottom");
+        pipesAndValves.add("Pipe Right-Top");
+        pipesAndValves.add("Pipe Right-Bottom");
+        pipesAndValves.add("Pipe Cross");
+
+        pipesAndValves.add("Valve Vertical1");
+        pipesAndValves.add("Valve Horizontal1");
+        pipesAndValves.add("Sensor");
+        pipesAndValves.add("Pipe Vertical1");
+        pipesAndValves.add("Pipe Horizontal1");
+        pipesAndValves.add("Pipe Left-Top1");
+        pipesAndValves.add("Pipe Left-Bottom1");
+        pipesAndValves.add("Pipe Right-Top1");
+        pipesAndValves.add("Pipe Right-Bottom1");
+        pipesAndValves.add("Pipe Cross1");
+
+
         List<String> staticElements = new ArrayList<String>();
-        staticElements.add("Valve Vertical");
-        staticElements.add("Valve Horizontal");
-        staticElements.add("Pipe Vertical");
-        staticElements.add("Pipe Horizontal");
-        staticElements.add("Pipe Left-Top");
-        staticElements.add("Pipe Left-Bottom");
-        staticElements.add("Pipe Right-Top");
-        staticElements.add("Pipe Right-Bottom");
-        staticElements.add("Pipe Cross");
         staticElements.add("Pump Left-Right");
         staticElements.add("Pump Right-Left");
+        staticElements.add("Tank");
+        staticElements.add("Window");
+        staticElements.add("Furnace");
+        staticElements.add("Heater");
+        staticElements.add("Security");
+        staticElements.add("Lock");
+        staticElements.add("Light Bulb");
+        staticElements.add("Washer");
+        staticElements.add("TV");
+
 
 
         listDataChild.put(listDataHeader.get(0), discreteControls);
         listDataChild.put(listDataHeader.get(1), analogControls);
-        listDataChild.put(listDataHeader.get(2), staticElements);
+        listDataChild.put(listDataHeader.get(2), pipesAndValves);
+        listDataChild.put(listDataHeader.get(3), staticElements);
     }
 
     //---------------METHODS TO COLOR CHANGE

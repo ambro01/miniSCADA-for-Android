@@ -4,7 +4,7 @@
     android:layout_height="40dp"
     android:orientation="horizontal"
     android:weightSum="1"
-    android:background="#d7d7d7">
+    android:background="#607985">
 
     <ImageView
         android:layout_width="40dp"
@@ -26,6 +26,6 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
-        android:textColor="#545454" />
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
