@@ -52,7 +52,7 @@ public class RuntimeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 if(runtime.getActiveElement() instanceof AnalogInput){
-                    ((AnalogInput) runtime.getActiveElement()).getSetpointFromPopup(this, data);
+                    ((AnalogInput) runtime.getActiveElement()).getSetpointFromPopup(this, data, runtime.getVisualisation().getIpAddress());
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -72,7 +72,7 @@ public class RuntimeActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        new PlcReader(getApplicationContext(), runtime.getVisualisation().getElements()).execute("");
+                        new PlcReader(getApplicationContext(), runtime.getVisualisation().getElements(), runtime.getVisualisation().getIpAddress()).execute("");
                     }
                 });
             }

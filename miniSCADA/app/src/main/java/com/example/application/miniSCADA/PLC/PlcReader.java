@@ -17,17 +17,19 @@ public class PlcReader extends AsyncTask<String, Void, String> {
     private String ret = "";
     private ArrayList<Element> elements;
     private Context context;
+    private String ipAddress;
 
-    public PlcReader(Context context, ArrayList<Element> ob){
+    public PlcReader(Context context, ArrayList<Element> ob, String ip){
         this.context = context;
         elements = ob;
+        ipAddress = ip;
     }
     @Override
     protected String doInBackground(String... params){
         if (!elements.isEmpty()) {
             try {
                 Globals.s7client.SetConnectionType(S7.S7_BASIC);
-                int result = Globals.s7client.ConnectTo("10.10.101.47", 0, 1);
+                int result = Globals.s7client.ConnectTo(ipAddress, 0, 1);
 
                 if (result == 0) {
                     for (Element element: elements) {

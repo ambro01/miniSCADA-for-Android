@@ -87,7 +87,7 @@ public class StaticElement extends Element{
         //nothing to do
     }
 
-    public void createOnClickListener(Activity activity, Runtime runtime){
+    public void createOnClickListener(Activity activity, Runtime runtime, String ip){
         //nothing to do
     }
 

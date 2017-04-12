@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import com.example.application.miniSCADA.Globals;
+import com.example.application.miniSCADA.PopupPlc;
 import com.example.application.miniSCADA.R;
 import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
 import com.example.application.miniSCADA.ExpandableListAdapter;
@@ -74,6 +75,14 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 //Write your code if there's no result
             }
         }
+        if (requestCode == 2) {
+            if(resultCode == Activity.RESULT_OK){
+                develop.getVisualisation().createDataFromPopup(this, data);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     //------------------BUTTON ACTIONS------------------------
@@ -90,7 +99,7 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
                 element.activeOnTouchListener(layout);
             }
         }
-    };
+    }
 
     public void onLongClickListenerSelect(View view){
         if(develop.getVisualisation().getElements().size() > 0){
@@ -102,6 +111,18 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
     public void onBackgroundColorChange(View view){
         onColorSelect(view);
+    }
+
+    public void onPLC(View view){
+        Intent startPopup = new Intent(this, PopupPlc.class);
+        //if (!develop.getVisualisation().getIpAddress().isEmpty()) {
+            startPopup.putExtra(this.getResources().getString(R.string.extraIp1ToPopup), String.valueOf(develop.getVisualisation().getIpAddressArray()[0]));
+            startPopup.putExtra(this.getResources().getString(R.string.extraIp2ToPopup), String.valueOf(develop.getVisualisation().getIpAddressArray()[1]));
+            startPopup.putExtra(this.getResources().getString(R.string.extraIp3ToPopup), String.valueOf(develop.getVisualisation().getIpAddressArray()[2]));
+            startPopup.putExtra(this.getResources().getString(R.string.extraIp4ToPopup), String.valueOf(develop.getVisualisation().getIpAddressArray()[3]));
+            this.setResult(Activity.RESULT_OK, startPopup);
+        //}
+        this.startActivityForResult(startPopup, 2);
     }
 
     //-----------METHODS TO LIST VIEW ----------------------

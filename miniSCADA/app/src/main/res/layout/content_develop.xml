@@ -53,25 +53,23 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text=">"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:id="@+id/button3"
         android:onClick="onTouchListenerSelect"
+        android:foreground="@drawable/hand"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button7"
-        android:layout_alignBottom="@+id/button7" />
+        android:layout_toStartOf="@+id/button4" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="."
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:id="@+id/button11"
         android:onClick="onLongClickListenerSelect"
+        android:foreground="@drawable/arrow"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button3"
-        android:layout_alignBottom="@+id/button3" />
+        android:layout_toStartOf="@+id/button3" />
 
     <ExpandableListView
         android:layout_width="wrap_content"
@@ -83,5 +81,16 @@
         android:layout_alignEnd="@+id/button10"
         android:layout_below="@+id/button10"
         android:background="#8b8b8b" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="PLC"
+        android:id="@+id/button4"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/button7"
+        android:layout_alignBottom="@+id/button7"
+        android:onClick="onPLC" />
 
 </RelativeLayout>

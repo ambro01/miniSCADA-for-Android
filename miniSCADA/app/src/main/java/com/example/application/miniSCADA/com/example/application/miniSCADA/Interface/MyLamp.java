@@ -101,7 +101,7 @@ public class MyLamp extends DiscreteElement{
         });
     }
 
-    public void createOnClickListener(Activity activity, Runtime runtime){
+    public void createOnClickListener(Activity activity, Runtime runtime, String ip){
         //nothing to do
     }
 

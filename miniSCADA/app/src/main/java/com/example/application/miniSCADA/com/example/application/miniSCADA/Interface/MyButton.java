@@ -89,13 +89,13 @@ public class MyButton extends DiscreteElement {
         }
     }
 
-    public void executeCommand(){
+    public void executeCommand(String ip){
         if(this.getStatus()) {
             S7.SetBitAt(this.commandOffDataBlock.getData(), 0, this.commandOffDataBlock.getBitPosition(), true);
-            new PlcWriter(this.commandOffDataBlock).execute("");
+            new PlcWriter(this.commandOffDataBlock, ip).execute("");
         }else{
             S7.SetBitAt(this.commandOnDataBlock.getData(), 0, this.commandOnDataBlock.getBitPosition(), true);
-            new PlcWriter(this.commandOnDataBlock).execute("");
+            new PlcWriter(this.commandOnDataBlock, ip).execute("");
         }
     }
 
@@ -161,11 +161,11 @@ public class MyButton extends DiscreteElement {
         });
     }
 
-    public void createOnClickListener(final Activity activity, final Runtime runtime){
+    public void createOnClickListener(final Activity activity, final Runtime runtime, final String ip){
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                executeCommand();
+                executeCommand(ip);
             }
         });
     }

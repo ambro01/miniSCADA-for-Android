@@ -130,7 +130,7 @@ public class AnalogDisplay extends Element{
         });
     }
 
-    public void createOnClickListener(Activity activity, Runtime runtime){
+    public void createOnClickListener(Activity activity, Runtime runtime, String ip){
         // nothing to do
     }
 

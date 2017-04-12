@@ -38,12 +38,12 @@ public class AnalogInput extends AnalogDisplay{
         getDisplayValue().setBackgroundResource(R.drawable.input_analog);
     }
 
-    public void getSetpointFromPopup(Activity activity, Intent intent){
+    public void getSetpointFromPopup(Activity activity, Intent intent, String ip){
         float value = Float.parseFloat(intent.getStringExtra(activity.getResources().getString(R.string.extraValueFromPopupText)));
         setInputValue(value);
 
         setDataBlockFromFloat();
-        sentDataBlockToPlc();
+        sentDataBlockToPlc(ip);
     }
 
     public void setDataBlockFromFloat(){
@@ -52,8 +52,8 @@ public class AnalogInput extends AnalogDisplay{
         inputDataBlock = new DataBlockReal(getDataBlock().getDbNumber(),getDataBlock().getPosition(), data);
     }
 
-    public void sentDataBlockToPlc(){
-        new PlcWriter(inputDataBlock).execute("");
+    public void sentDataBlockToPlc(String ip){
+        new PlcWriter(inputDataBlock, ip).execute("");
     }
 
     public void createOnClickListener(final Activity activity, final Runtime runtime){

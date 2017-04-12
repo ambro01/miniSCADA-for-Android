@@ -25,6 +25,14 @@
     <string name="extraRealDataBlock">dataBlock</string>
     <string name="extraProjectName">projectName</string>
     <string name="extraDeserialize">deserialize</string>
+    <string name="extraIp1ToPopup">Ip1ToPopup</string>
+    <string name="extraIp2ToPopup">Ip2ToPopup</string>
+    <string name="extraIp3ToPopup">Ip3ToPopup</string>
+    <string name="extraIp4ToPopup">Ip4ToPopup</string>
+    <string name="extraIp1FromPopup">Ip1FromPopup</string>
+    <string name="extraIp2FromPopup">Ip2FromPopup</string>
+    <string name="extraIp3FromPopup">Ip3FromPopup</string>
+    <string name="extraIp4FromPopup">Ip4FromPopup</string>
 
     <string-array name="bitIndex">
         <item>"0"</item>

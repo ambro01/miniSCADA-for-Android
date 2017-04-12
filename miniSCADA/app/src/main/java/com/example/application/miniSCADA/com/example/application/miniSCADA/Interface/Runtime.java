@@ -62,19 +62,19 @@ public class Runtime {
                 myButton.reCreateElement(activity);
                 myButton.updateTrueFalseImage(activity);
                 myButton.drawObject(layout);
-                myButton.createOnClickListener(activity, this);
+                myButton.createOnClickListener(activity, this, visualisation.getIpAddress());
             } else if(element instanceof MyLamp){
                 MyLamp myLamp = (MyLamp) element;
                 myLamp.reCreateElement(activity);
                 myLamp.updateTrueFalseImage(activity);
                 myLamp.drawObject(layout);
-                myLamp.createOnClickListener(activity, this);
+                myLamp.createOnClickListener(activity, this, visualisation.getIpAddress());
             } else if(element instanceof StaticElement) {
                 StaticElement staticElement = (StaticElement) element;
                 staticElement.reCreateElement(activity);
                 staticElement.updateTrueFalseImage(activity);
                 staticElement.drawObject(layout);
-                staticElement.createOnClickListener(activity, this);
+                staticElement.createOnClickListener(activity, this, visualisation.getIpAddress());
             } else if(element instanceof AnalogDisplay) {
                 if(element instanceof AnalogInput){
                     AnalogInput analogInput = (AnalogInput) element;
@@ -85,14 +85,14 @@ public class Runtime {
                     AnalogDisplay analogDisplay = (AnalogDisplay) element;
                     analogDisplay.reCreateElement(activity);
                     analogDisplay.drawObject(layout);
-                    analogDisplay.createOnClickListener(activity, this);
+                    analogDisplay.createOnClickListener(activity, this, visualisation.getIpAddress());
                 }
             }
             else if(element instanceof Label){
                 Label label = (Label) element;
                 label.reCreateElement(activity);
                 label.drawObject(layout);
-                label.createOnClickListener(activity, this);
+                label.createOnClickListener(activity, this, visualisation.getIpAddress());
             }
         }
     }

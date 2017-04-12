@@ -1,5 +1,10 @@
 package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
 
+import android.app.Activity;
+import android.content.Intent;
+
+import com.example.application.miniSCADA.R;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,11 +13,15 @@ public class Visualisation implements Serializable{
     String name;
     ArrayList<Element> elements;
     int backgroundColor;
+    private static String ipAddress;
+    private static int[] ipAddressArray;
 
     public Visualisation(String name, int backgroundColor){
         this.name = name;
         this.backgroundColor = backgroundColor;
         elements = new ArrayList<Element>();
+        ipAddress = "";
+        ipAddressArray = new int[4];
     }
 
     public void setBackgrondColor(int color){
@@ -33,6 +42,39 @@ public class Visualisation implements Serializable{
 
     public String getName(){
         return name;
+    }
+
+    public String getIpAddress(){
+        return ipAddress;
+    }
+
+    public int[] getIpAddressArray(){
+        return ipAddressArray;
+    }
+
+    public void setIpAddress(String ip){
+        ipAddress = ip;
+    }
+
+    public void setIpAddressArray(int[] ip){
+        ipAddressArray = ip;
+    }
+
+    public void ipFromIpArray(){
+        ipAddress = String.valueOf(ipAddressArray[0]) + "." + String.valueOf(ipAddressArray[1]) + "." +
+                String.valueOf(ipAddressArray[2]) + "." + String.valueOf(ipAddressArray[3]);
+    }
+
+    public void createDataFromPopup(Activity activity, Intent intent){
+        int ip[] = new int[4];
+
+        ip[0] = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraIp1FromPopup)));
+        ip[1] = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraIp2FromPopup)));
+        ip[2] = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraIp3FromPopup)));
+        ip[3] = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraIp4FromPopup)));
+
+        setIpAddressArray(ip);
+        ipFromIpArray();
     }
 
 }

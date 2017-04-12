@@ -47,6 +47,9 @@
         <activity
             android:name=".PopupAnalog"
             android:theme="@style/myDialog" />
+        <activity
+            android:name=".PopupPlc"
+            android:theme="@style/myDialog" />
         <activity android:name=".Activities.PreRuntimeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activities.RuntimeActivity"
