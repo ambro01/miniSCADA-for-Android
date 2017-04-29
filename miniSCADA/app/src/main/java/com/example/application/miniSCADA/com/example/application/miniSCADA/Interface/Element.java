@@ -82,7 +82,10 @@ public abstract class Element implements Serializable{
 
     public abstract void activeOnLongClickListener(Activity activity,Develop develop);
 
+    public abstract void activeOnDeleteClickListener(Activity activity,Develop develop);
+
     public abstract void activeOnTouchListener(RelativeLayout layout);
 
     public abstract void createDataFromPopup(Activity activity, Intent intent);
+
 }

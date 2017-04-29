@@ -77,4 +77,8 @@ public class Visualisation implements Serializable{
         ipFromIpArray();
     }
 
+    public void deleteElement(Element element){
+        elements.remove(element);
+    }
+
 }

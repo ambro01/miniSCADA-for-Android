@@ -108,10 +108,25 @@ public class MyLamp extends DiscreteElement{
     public void activeOnLongClickListener(Activity activity, Develop develop){
         createOnLongClickListener(activity, develop);
         image.setOnTouchListener(null);
+        image.setOnClickListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
+        image.setOnLongClickListener(null);
+        image.setOnClickListener(null);
+    }
+
+    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
+        final Element element = (Element) this;
+        image.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                image.setBackground(null);
+                develop.getVisualisation().deleteElement(element);
+            }
+        });
+        image.setOnTouchListener(null);
         image.setOnLongClickListener(null);
     }
 

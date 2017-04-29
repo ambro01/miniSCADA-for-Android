@@ -134,14 +134,31 @@ public class AnalogDisplay extends Element{
         // nothing to do
     }
 
+    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
+        final Element element = (Element) this;
+        displayValue.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                displayValue.setBackground(null);
+                displayValue.setText("");
+                develop.getVisualisation().deleteElement(element);
+            }
+        });
+
+        displayValue.setOnLongClickListener(null);
+        displayValue.setOnTouchListener(null);
+    }
+
     public void activeOnLongClickListener(Activity activity,Develop develop){
         createOnLongClickListener(activity, develop);
         displayValue.setOnTouchListener(null);
+        displayValue.setOnClickListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
         displayValue.setOnLongClickListener(null);
+        displayValue.setOnClickListener(null);
     }
 
     public void createDataFromPopup(Activity activity, Intent intent){

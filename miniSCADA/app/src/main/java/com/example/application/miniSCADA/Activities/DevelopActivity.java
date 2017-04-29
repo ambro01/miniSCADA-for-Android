@@ -109,6 +109,14 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         }
     }
 
+    public void onDeleteClickListenerSelect(View view){
+        if(develop.getVisualisation().getElements().size() > 0){
+            for (Element element : develop.getVisualisation().getElements()){
+                element.activeOnDeleteClickListener(this, develop);
+            }
+        }
+    }
+
     public void onBackgroundColorChange(View view){
         onColorSelect(view);
     }
@@ -139,7 +147,6 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         itemsListView.collapseGroup(1);
         itemsListView.collapseGroup(2);
         itemsListView.collapseGroup(3);
-
     }
 
     public void prepareListView(){
@@ -213,21 +220,25 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         analogControls.add("Label");
 
         List<String> pipesAndValves = new ArrayList<String>();
-        pipesAndValves.add("Valve Vertical");
-        pipesAndValves.add("Valve Horizontal");
-        pipesAndValves.add("Pipe Vertical");
-        pipesAndValves.add("Pipe Horizontal");
+        pipesAndValves.add("Valve V");
+        pipesAndValves.add("Valve H");
+        pipesAndValves.add("Pipe V Short");
+        pipesAndValves.add("Pipe V Long");
+        pipesAndValves.add("Pipe H Short");
+        pipesAndValves.add("Pipe H Long");
         pipesAndValves.add("Pipe Left-Top");
         pipesAndValves.add("Pipe Left-Bottom");
         pipesAndValves.add("Pipe Right-Top");
         pipesAndValves.add("Pipe Right-Bottom");
         pipesAndValves.add("Pipe Cross");
 
-        pipesAndValves.add("Valve Vertical1");
-        pipesAndValves.add("Valve Horizontal1");
+        pipesAndValves.add("Valve V Short1");
+        pipesAndValves.add("Valve V Long1");
+        pipesAndValves.add("Valve H Short1");
+        pipesAndValves.add("Valve H Long1");
         pipesAndValves.add("Sensor");
-        pipesAndValves.add("Pipe Vertical1");
-        pipesAndValves.add("Pipe Horizontal1");
+        pipesAndValves.add("Pipe V1");
+        pipesAndValves.add("Pipe H1");
         pipesAndValves.add("Pipe Left-Top1");
         pipesAndValves.add("Pipe Left-Bottom1");
         pipesAndValves.add("Pipe Right-Top1");

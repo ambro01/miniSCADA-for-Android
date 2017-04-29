@@ -173,10 +173,27 @@ public class MyButton extends DiscreteElement {
     public void activeOnLongClickListener(Activity activity, Develop develop){
         createOnLongClickListener(activity, develop);
         button.setOnTouchListener(null);
+        button.setOnClickListener(null);
+    }
+
+    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
+        final Element element = (Element) this;
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                button.setBackground(null);
+                button.setText("");
+                button = null;
+                develop.getVisualisation().deleteElement(element);
+            }
+        });
+        button.setOnTouchListener(null);
+        button.setOnLongClickListener(null);
     }
 
     public void activeOnTouchListener(RelativeLayout layout){
         createOnTouchListener(layout);
+        button.setOnClickListener(null);
         button.setOnLongClickListener(null);
     }
 

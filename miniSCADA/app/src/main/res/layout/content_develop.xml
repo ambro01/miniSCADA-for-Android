@@ -53,23 +53,28 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/button3"
         android:onClick="onTouchListenerSelect"
-        android:foreground="@drawable/hand"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button4" />
+        android:layout_toStartOf="@+id/button4"
+        android:layout_alignBottom="@+id/button11"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/hand2" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/button11"
         android:onClick="onLongClickListenerSelect"
-        android:foreground="@drawable/arrow"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_toStartOf="@+id/button3"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/arrow2"
+        android:layout_marginTop="5dp" />
 
     <ExpandableListView
         android:layout_width="wrap_content"
@@ -92,5 +97,19 @@
         android:layout_toStartOf="@+id/button7"
         android:layout_alignBottom="@+id/button7"
         android:onClick="onPLC" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button12"
+        android:onClick="onDeleteClickListenerSelect"
+        android:layout_alignBottom="@+id/button11"
+        android:layout_toStartOf="@+id/button11"
+        android:layout_marginRight="10dp"
+        android:singleLine="false"
+        android:gravity="top"
+        android:background="@drawable/rubbish"
+        android:layout_marginTop="5dp" />
 
 </RelativeLayout>

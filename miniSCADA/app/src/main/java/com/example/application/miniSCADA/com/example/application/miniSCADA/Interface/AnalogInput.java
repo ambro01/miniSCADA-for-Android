@@ -69,4 +69,18 @@ public class AnalogInput extends AnalogDisplay{
             }
         });
     }
+
+    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
+        final Element element = (Element) this;
+        getDisplayValue().setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getDisplayValue().setText("");
+                getDisplayValue().setBackground(null);
+                develop.getVisualisation().deleteElement(element);
+            }
+        });
+        getDisplayValue().setOnLongClickListener(null);
+        getDisplayValue().setOnTouchListener(null);
+    }
 }
