@@ -15,6 +15,7 @@ public class Globals {
    public static final int posY = 150;
    public static final int buttonHeight = 50;
    public static final int buttonWidth = 100;
+   public static final int buttonSide = 50;
    public static final int circleDiameter = 50;
    public static final int elementSide = 100;
    public static final int analogHeight = 25;

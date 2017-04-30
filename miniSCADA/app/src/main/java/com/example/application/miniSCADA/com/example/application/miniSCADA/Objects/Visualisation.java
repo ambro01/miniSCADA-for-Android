@@ -1,4 +1,4 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class Visualisation implements Serializable{
     private static final long serialVersionUID = 1L;
-    String name;
-    ArrayList<Element> elements;
-    int backgroundColor;
-    private static String ipAddress;
-    private static int[] ipAddressArray;
+    private String name;
+    private ArrayList<Element> elements;
+    private int backgroundColor;
+    private String ipAddress;
+    private int[] ipAddressArray;
 
     public Visualisation(String name, int backgroundColor){
         this.name = name;

@@ -1,4 +1,5 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,51 +8,30 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.example.application.miniSCADA.PLC.DataBlockReal;
-import com.example.application.miniSCADA.PopupAnalog;
+
+import com.example.application.miniSCADA.PopupLabel;
 import com.example.application.miniSCADA.R;
 
-import Moka7.S7;
-
-public class AnalogDisplay extends Element{
+public class Label extends Element {
     private transient TextView displayValue;
-    private DataBlockReal outputDataBlock;
-    float outputValue;
+    private String text;
 
-    public AnalogDisplay(Activity activity, DataBlockReal dataBlockReal, int x, int y, int height, int width){
+    public Label(Activity activity, int x, int y, int height, int width){
         super(x,y,height,width);
         displayValue = new TextView(activity);
-        outputDataBlock = dataBlockReal;
+        text = "";
         defaultSettings();
     }
 
-    public void setOutputValue(float value){
-        outputValue = value;
-    }
-
     public void defaultSettings(){
-        displayValue.setBackgroundResource(R.drawable.display_analog);
         displayValue.setTextSize(16);
-        displayValue.setTextColor(Color.BLACK);
         displayValue.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        displayValue.setText("Display");
-    }
-
-    public float getOutputValue(){
-        return outputValue;
+        displayValue.setText("#####");
+        displayValue.setTextColor(Color.BLACK);
     }
 
     public TextView getDisplayValue(){
         return displayValue;
-    }
-
-    public DataBlockReal getDataBlock(){
-        return outputDataBlock;
-    }
-
-
-    public void setOutputDataBlock(DataBlockReal dataBlock){
-        outputDataBlock = dataBlock;
     }
 
     public void updatePositionToElement(){
@@ -72,14 +52,6 @@ public class AnalogDisplay extends Element{
         this.setSize(displayValue.getHeight(), displayValue.getWidth());
     }
 
-    public void updateDisplayValue(){
-        displayValue.setText(String.valueOf(outputValue));
-    }
-
-    public void updateValueFromPlc(){
-        this.outputValue = S7.GetFloatAt(getDataBlock().getData(),0);
-    }
-
     public void drawObject(RelativeLayout layout){
         layout.addView(displayValue);
     }
@@ -87,6 +59,9 @@ public class AnalogDisplay extends Element{
     public void reCreateElement(Activity activity){
         displayValue = new TextView(activity);
         defaultSettings();
+        if(!text.isEmpty()){
+            displayValue.setText(text);
+        }
 
         updatePositionToElement();
         updateSizeToElement();
@@ -120,9 +95,9 @@ public class AnalogDisplay extends Element{
         displayValue.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                develop.setActiveElement(AnalogDisplay.this);
-                Intent startPopup = new Intent(activity, PopupAnalog.class);
-                startPopup.putExtra(activity.getResources().getString(R.string.extraRealDataBlock),getDataBlock());
+                develop.setActiveElement(Label.this);
+                Intent startPopup = new Intent(activity, PopupLabel.class);
+                startPopup.putExtra(activity.getResources().getString(R.string.extraLabelToPopupText), text);
                 activity.setResult(Activity.RESULT_OK,startPopup);
                 activity.startActivityForResult(startPopup,1);
                 return true;
@@ -131,22 +106,7 @@ public class AnalogDisplay extends Element{
     }
 
     public void createOnClickListener(Activity activity, Runtime runtime, String ip){
-        // nothing to do
-    }
-
-    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
-        final Element element = (Element) this;
-        displayValue.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                displayValue.setBackground(null);
-                displayValue.setText("");
-                develop.getVisualisation().deleteElement(element);
-            }
-        });
-
-        displayValue.setOnLongClickListener(null);
-        displayValue.setOnTouchListener(null);
+        //nothing to do
     }
 
     public void activeOnLongClickListener(Activity activity,Develop develop){
@@ -161,12 +121,25 @@ public class AnalogDisplay extends Element{
         displayValue.setOnClickListener(null);
     }
 
-    public void createDataFromPopup(Activity activity, Intent intent){
-        int dbNumber;
-        int wordNumber;
-
-        dbNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraDbNumberAnalog)));
-        wordNumber = Integer.parseInt(intent.getStringExtra(activity.getResources().getString(R.string.extraWordNumberAnalog)));
-        setOutputDataBlock(new DataBlockReal(dbNumber,wordNumber, new byte[4]));
+    public void activeOnDeleteClickListener(Activity activity, final Develop develop){
+        final Element element = (Element) this;
+        displayValue.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                displayValue.setText("");
+                develop.getVisualisation().deleteElement(element);
+            }
+        });
+        displayValue.setOnLongClickListener(null);
+        displayValue.setOnTouchListener(null);
     }
+
+    public void createDataFromPopup(Activity activity, Intent intent){
+        String textTemp;
+        textTemp = intent.getStringExtra(activity.getResources().getString(R.string.extraLabelFromPopupText));
+
+        text = textTemp;
+        displayValue.setText(text);
+    }
+
 }

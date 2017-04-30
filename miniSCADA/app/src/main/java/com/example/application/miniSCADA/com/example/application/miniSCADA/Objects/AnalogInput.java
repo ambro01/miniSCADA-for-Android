@@ -1,16 +1,13 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import com.example.application.miniSCADA.PLC.DataBlock;
 import com.example.application.miniSCADA.PLC.DataBlockReal;
 import com.example.application.miniSCADA.PLC.PlcWriter;
 import com.example.application.miniSCADA.PopupAnalogSetpoint;
 import com.example.application.miniSCADA.R;
-
-import java.nio.ByteBuffer;
 
 import Moka7.S7;
 

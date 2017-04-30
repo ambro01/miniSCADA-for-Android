@@ -1,12 +1,14 @@
 package com.example.application.miniSCADA.PLC;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.application.miniSCADA.Globals;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.AnalogDisplay;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.DiscreteElement;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.AnalogDisplay;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.DiscreteElement;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.Element;
 
 import java.util.ArrayList;
 
@@ -37,14 +39,10 @@ public class PlcReader extends AsyncTask<String, Void, String> {
                             DiscreteElement discreteElement = (DiscreteElement) element;
                             result = Globals.s7client.ReadArea(S7.S7AreaDB, discreteElement.getStatusDataBlock().getDbNumber(), discreteElement.getStatusDataBlock().getPosition(),
                                     discreteElement.getStatusDataBlock().getSize(), discreteElement.getStatusDataBlock().getData());
-                            System.out.println("------------------------------------------------");
-                            System.out.println(discreteElement.getStatus());
                         } else if(element instanceof AnalogDisplay){
                             AnalogDisplay analogDisplay = (AnalogDisplay) element;
                             result = Globals.s7client.ReadArea(S7.S7AreaDB, analogDisplay.getDataBlock().getDbNumber(), analogDisplay.getDataBlock().getPosition(),
                                     analogDisplay.getDataBlock().getSize(), analogDisplay.getDataBlock().getData());
-                            System.out.println("------------------------------------------------");
-                            System.out.println(analogDisplay.getOutputValue());
                         }
                     }
                 } else {

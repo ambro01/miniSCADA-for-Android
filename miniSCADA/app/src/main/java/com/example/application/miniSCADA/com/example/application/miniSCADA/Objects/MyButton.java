@@ -1,4 +1,4 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +38,7 @@ public class MyButton extends DiscreteElement {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             button.setStateListAnimator(null);
         }
+        updateSizeToElement();
     }
 
     public void setTextOnTrue(String text){

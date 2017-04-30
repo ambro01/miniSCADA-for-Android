@@ -13,6 +13,7 @@
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,36 +24,47 @@
         <activity
             android:name=".Activities.DevelopActivity"
             android:label="@string/title_activity_develop"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.PreDevelopActivity"
             android:label="@string/title_activity_pre_develop"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ModifyActivity"
             android:label="@string/title_activity_modify"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PopupStatusCommand"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity
             android:name=".PopupStatus"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity
             android:name=".PopupLabel"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity
             android:name=".PopupAnalogSetpoint"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity
             android:name=".PopupAnalog"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity
             android:name=".PopupPlc"
+            android:screenOrientation="landscape"
             android:theme="@style/myDialog" />
         <activity android:name=".Activities.PreRuntimeActivity"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activities.RuntimeActivity"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.PlcReader;
 import com.example.application.miniSCADA.R;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.AnalogInput;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Runtime;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.AnalogInput;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.Runtime;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +19,7 @@ public class RuntimeActivity extends AppCompatActivity {
 
     private Runtime runtime;
     private RelativeLayout layout;
+    private Timer timer;
 
 
     @Override
@@ -65,7 +66,7 @@ public class RuntimeActivity extends AppCompatActivity {
 
     public void periodicallyReadPlc(){
         final Handler handler = new Handler();
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -81,4 +82,10 @@ public class RuntimeActivity extends AppCompatActivity {
         timer.schedule(task,0,1000);
     }
 
+    @Override
+    protected void onDestroy() {
+        timer.cancel();
+        runtime = null;
+        super.onDestroy();
+    }
 }

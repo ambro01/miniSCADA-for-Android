@@ -1,4 +1,4 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
 
 
 import android.app.Activity;
@@ -150,6 +150,12 @@ public class Develop {
                 case "Button":
                     defaultButtonCreate(activity, layout, itemName);
                     break;
+                case "Button - Circle":
+                    defaultButtonCreate(activity, layout, itemName);
+                    break;
+                case "Button - Light":
+                    defaultButtonCreate(activity, layout, itemName);
+                    break;
                 case "Lamp":
                     defaultLampCreate(activity, layout, itemName);
                     break;
@@ -188,10 +194,17 @@ public class Develop {
         DataBlockBool statusDataBlock = new DataBlockBool(0,0,data,0);
         DataBlockBool commandOnDataBlock = new DataBlockBool(0,0,data,1);
         DataBlockBool commandOffDataBlock = new DataBlockBool(0,0,data,2);
-        MyButton myButton = new MyButton(activity, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
-                Globals.dptoPx(Globals.buttonHeight), Globals.dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
-        myButton.setTextOnFalse("Turn ON");
-        myButton.setTextOnTrue("Turn OFF");
+        MyButton myButton;
+
+        if(name.equals("Button")) {
+            myButton = new MyButton(activity, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                    Globals.dptoPx(Globals.buttonHeight), Globals.dptoPx(Globals.buttonWidth), commandOnDataBlock, commandOffDataBlock);
+            myButton.setTextOnFalse("ON");
+            myButton.setTextOnTrue("OFF");
+        } else {
+            myButton = new MyButton(activity, statusDataBlock, Globals.dptoPx(Globals.posX), Globals.dptoPx(Globals.posY),
+                    Globals.dptoPx(Globals.buttonSide), Globals.dptoPx(Globals.buttonSide), commandOnDataBlock, commandOffDataBlock);
+        }
 
         myButton.setOnTrueImage(name + "1.png");
         myButton.setOnFalseImage(name + "0.png");

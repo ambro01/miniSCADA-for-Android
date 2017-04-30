@@ -1,10 +1,9 @@
-package com.example.application.miniSCADA.com.example.application.miniSCADA.Interface;
+package com.example.application.miniSCADA.com.example.application.miniSCADA.Objects;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +12,6 @@ import android.widget.RelativeLayout;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PLC.DataBlockBool;
 import com.example.application.miniSCADA.PopupStatus;
-import com.example.application.miniSCADA.PopupStatusCommand;
 import com.example.application.miniSCADA.R;
 
 public class MyLamp extends DiscreteElement{

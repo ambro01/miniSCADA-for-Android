@@ -9,15 +9,14 @@ import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import com.example.application.miniSCADA.Globals;
 import com.example.application.miniSCADA.PopupPlc;
 import com.example.application.miniSCADA.R;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Develop;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.Develop;
 import com.example.application.miniSCADA.ExpandableListAdapter;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Element;
-import com.example.application.miniSCADA.com.example.application.miniSCADA.Interface.Visualisation;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.Element;
+import com.example.application.miniSCADA.com.example.application.miniSCADA.Objects.Visualisation;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
@@ -212,6 +211,8 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
 
         List<String> discreteControls = new ArrayList<String>();
         discreteControls.add("Button");
+        discreteControls.add("Button - Circle");
+        discreteControls.add("Button - Light");
         discreteControls.add("Lamp");
 
         List<String> analogControls = new ArrayList<String>();
@@ -232,34 +233,36 @@ public class DevelopActivity extends AppCompatActivity implements ColorPickerDia
         pipesAndValves.add("Pipe Right-Bottom");
         pipesAndValves.add("Pipe Cross");
 
-        pipesAndValves.add("Valve V Short1");
-        pipesAndValves.add("Valve V Long1");
-        pipesAndValves.add("Valve H Short1");
-        pipesAndValves.add("Valve H Long1");
         pipesAndValves.add("Sensor");
-        pipesAndValves.add("Pipe V1");
-        pipesAndValves.add("Pipe H1");
+        pipesAndValves.add("Valve V1");
+        pipesAndValves.add("Valve H1");
+        pipesAndValves.add("Pipe V Short1");
+        pipesAndValves.add("Pipe V Long1");
+        pipesAndValves.add("Pipe H Short1");
+        pipesAndValves.add("Pipe H Long1");
         pipesAndValves.add("Pipe Left-Top1");
         pipesAndValves.add("Pipe Left-Bottom1");
         pipesAndValves.add("Pipe Right-Top1");
         pipesAndValves.add("Pipe Right-Bottom1");
         pipesAndValves.add("Pipe Cross1");
 
-
         List<String> staticElements = new ArrayList<String>();
         staticElements.add("Pump Left-Right");
         staticElements.add("Pump Right-Left");
+        staticElements.add("Motor");
+        staticElements.add("Engine");
         staticElements.add("Tank");
         staticElements.add("Window");
         staticElements.add("Furnace");
         staticElements.add("Heater");
+        staticElements.add("Heater1");
         staticElements.add("Security");
         staticElements.add("Lock");
         staticElements.add("Light Bulb");
+        staticElements.add("Fan");
         staticElements.add("Washer");
         staticElements.add("TV");
-
-
+        staticElements.add("Thermometer");
 
         listDataChild.put(listDataHeader.get(0), discreteControls);
         listDataChild.put(listDataHeader.get(1), analogControls);
